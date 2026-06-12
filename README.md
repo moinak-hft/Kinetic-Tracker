@@ -62,3 +62,13 @@ yolo export model=your_custom_model.pt format=onnx
 mingw32-make
 ./AlphaTracker.exe
 ```
+## Acknowledgments & References
+
+This inference architecture is built upon the foundational mathematical frameworks established in the following papers:
+
+* **SORT Engine:** Bewley, A., Ge, Z., Ott, L., Ramos, F., & Upcroft, B. (2016). *Simple Online and Realtime Tracking*. [arXiv:1602.00763](https://arxiv.org/abs/1602.00763)
+* **Detection Network:** Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. (2016). *You Only Look Once: Unified, Real-Time Object Detection*. [arXiv:1506.02640](https://arxiv.org/abs/1506.02640)
+
+## License
+
+This project is open-source and licensed under the MIT License. See the `LICENSE` file for details.
