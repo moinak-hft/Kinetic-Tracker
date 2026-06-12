@@ -36,3 +36,29 @@ mkdir build
 cd build
 cmake ..
 mingw32-make
+```
+
+**2. Run the Inference**
+Execute the compiled binary to process the video and generate the `flight_telemetry.csv` file.
+```bash
+./AlphaTracker.exe
+```
+
+**3. Generate the Analytics**
+Execute the Jupyter Notebook or run the Python script to render the flight path trajectories.
+```bash
+pip install pandas matplotlib seaborn
+python visualize_telemetry.py
+```
+
+**4. Execute Your Own Custom Version**
+To run the Kinetic-Tracker architecture on your own footage or custom-trained neural networks, replace the target assets in the root directory:
+
+* **Custom Video Tracking:** Place your `.mp4` file in the root directory and rename it to `test_video.mp4`, or manually update the `cv::VideoCapture` target path in `main.cpp`.
+* **Custom YOLOv8 Weights:** If you are using a custom-trained model, export it to ONNX format and place it in the root directory as `best.onnx`.
+
+```bash
+yolo export model=your_custom_model.pt format=onnx
+mingw32-make
+./AlphaTracker.exe
+```
