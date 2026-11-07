@@ -1,0 +1,14 @@
+[
+  {
+    "name": "all_estimates",
+    "schedule": "every",
+    "association": "two_stage",
+    "output_policy": "all"
+  },
+  {
+    "name": "active_outputs",
+    "schedule": "every",
+    "association": "two_stage",
+    "output_policy": "active"
+  }
+]

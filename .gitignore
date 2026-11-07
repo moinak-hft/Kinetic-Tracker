@@ -1,0 +1,14 @@
+.venv/
+build/
+build-*/
+data/
+work/
+runs/
+__pycache__/
+*.pyc
+*.exe
+*.dll
+*.o
+*.obj
+*.partial
+.DS_Store

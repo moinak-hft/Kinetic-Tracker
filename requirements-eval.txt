@@ -1,0 +1,6 @@
+# Evaluation and tracking-only official reference dependencies.
+numpy>=2.2,<3
+scipy>=1.15,<2
+filterpy==1.4.5
+lap==0.5.14
+# ByteTrack's cython_bbox overlap extension has a documented NumPy adapter.

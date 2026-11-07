@@ -1,0 +1,87 @@
+{
+  "retrieved": "2026-11-07",
+  "note": "Minimal tracking/evaluation-only source subsets fetched from official author repositories. No detectors, weights, or training code included. Package marker files authored locally to avoid optional heavyweight imports. Source final newlines may be normalized by patch authoring; only listed scalar/import substitutions affect executable vendored text. Cache adapters explicitly select NumPy input; unused upstream tensor-input branches are not supported.",
+  "components": [
+    {
+      "name": "TrackEval",
+      "repository": "https://github.com/JonathonLuiten/TrackEval",
+      "commit": "12c8791b303e0a0b50f753af204249e622d0281a",
+      "files": [
+        "LICENSE",
+        "trackeval/_timing.py",
+        "trackeval/utils.py",
+        "trackeval/metrics/_base_metric.py",
+        "trackeval/metrics/hota.py",
+        "trackeval/metrics/clear.py",
+        "trackeval/metrics/identity.py"
+      ],
+      "compatibility_patches": [
+        {
+          "path": "trackeval/metrics/hota.py",
+          "patch": "Replace removed NumPy np.float/np.int aliases by Python float/int; no algorithm change."
+        },
+        {
+          "path": "trackeval/metrics/identity.py",
+          "patch": "Replace removed NumPy np.float/np.int aliases by Python float/int; no algorithm change."
+        }
+      ]
+    },
+    {
+      "name": "OC_SORT",
+      "repository": "https://github.com/noahcao/OC_SORT",
+      "commit": "8462e7e729a93ccd3bd995c0a79a890336cb3a0b",
+      "files": [
+        "LICENSE",
+        "trackers/ocsort_tracker/ocsort.py",
+        "trackers/ocsort_tracker/association.py",
+        "trackers/ocsort_tracker/kalmanfilter.py"
+      ],
+      "compatibility_patches": []
+    },
+    {
+      "name": "ByteTrack",
+      "repository": "https://github.com/FoundationVision/ByteTrack",
+      "commit": "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "files": [
+        "LICENSE",
+        "yolox/tracker/byte_tracker.py",
+        "yolox/tracker/matching.py",
+        "yolox/tracker/kalman_filter.py",
+        "yolox/tracker/basetrack.py"
+      ],
+      "compatibility_patches": [
+        {
+          "path": "yolox/tracker/byte_tracker.py",
+          "patch": "Replace removed NumPy np.float/np.int aliases by Python float/int; no algorithm change."
+        },
+        {
+          "path": "yolox/tracker/byte_tracker.py",
+          "patch": "Remove unused torch imports; runner exclusively uses upstream Nx5 NumPy branch. Tensor inputs unsupported in this vendored subset."
+        },
+        {
+          "path": "yolox/tracker/matching.py",
+          "patch": "Replace removed NumPy np.float/np.int aliases by Python float/int; no algorithm change."
+        },
+        {
+          "path": "cython_bbox.py (local compatibility module)",
+          "patch": "Replace unavailable compiled cython_bbox extension with NumPy bbox_overlaps using exact upstream inclusive (+1) pixel arithmetic. Official lap.lapjv assignment and cost_limit are preserved. Verified against upstream loop over deterministic random valid boxes and empty inputs."
+        }
+      ]
+    },
+    {
+      "name": "cython_bbox formula reference",
+      "repository": "https://github.com/samson-wang/cython_bbox",
+      "commit": "4874834e6de5c3a07c68d027edcaa62012d76ef0",
+      "files": [
+        "src/cython_bbox.pyx",
+        "LICENSE"
+      ],
+      "local_files": [
+        "ByteTrack/cython_bbox.py",
+        "ByteTrack/CYTHON_BBOX_LICENSE"
+      ],
+      "note": "Only bbox_overlaps arithmetic is implemented in NumPy; no compiled extension or external build tool required."
+    }
+  ]
+}
+

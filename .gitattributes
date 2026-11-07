@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.onnx binary
+*.mp4 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+third_party/** -text

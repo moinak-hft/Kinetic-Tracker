@@ -1,0 +1,405 @@
+{
+  "selection": "Maximize unweighted mean HOTA over six synthetic validation sequences, separately at target rates0.25/0.5; tie-break IDF1 then fewer calls. No test results used.",
+  "validation_sequences": [
+    "data/synthetic/validation/easy",
+    "data/synthetic/validation/crossings",
+    "data/synthetic/validation/abrupt_turns",
+    "data/synthetic/validation/occlusion",
+    "data/synthetic/validation/births",
+    "data/synthetic/validation/background_motion"
+  ],
+  "selected": [
+    {
+      "name": "adaptive25",
+      "schedule": "adaptive",
+      "association": "two_stage",
+      "target_rate": 0.25,
+      "risk_threshold": 0.28,
+      "novelty_threshold": 8e-05,
+      "max_gap": 8
+    },
+    {
+      "name": "adaptive50",
+      "schedule": "adaptive",
+      "association": "two_stage",
+      "target_rate": 0.5,
+      "risk_threshold": 0.28,
+      "novelty_threshold": 8e-05,
+      "max_gap": 8
+    }
+  ],
+  "candidates": [
+    {
+      "config": {
+        "name": "adaptive_b0.25_r0.12_n8e-05",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.25,
+        "risk_threshold": 0.12,
+        "novelty_threshold": 8e-05,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 241,
+        "detector_rate": 0.22314814814814815,
+        "HOTA": 0.6830991544763488,
+        "AssA": 0.6451858547475122,
+        "DetA": 0.755434708925908,
+        "IDF1": 0.7598239607261777,
+        "MOTA": 0.8372719994430519,
+        "IDSW": 33,
+        "Frag": 113,
+        "FP": 281,
+        "FN": 309,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.25_r0.12_n0.0003",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.25,
+        "risk_threshold": 0.12,
+        "novelty_threshold": 0.0003,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 241,
+        "detector_rate": 0.22314814814814815,
+        "HOTA": 0.6832368474322138,
+        "AssA": 0.6454499269496677,
+        "DetA": 0.7554521914367617,
+        "IDF1": 0.7598239607261777,
+        "MOTA": 0.8372719994430519,
+        "IDSW": 33,
+        "Frag": 112,
+        "FP": 281,
+        "FN": 309,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.25_r0.18_n8e-05",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.25,
+        "risk_threshold": 0.18,
+        "novelty_threshold": 8e-05,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 237,
+        "detector_rate": 0.21944444444444444,
+        "HOTA": 0.681073782441179,
+        "AssA": 0.6436990966176981,
+        "DetA": 0.7534248013970101,
+        "IDF1": 0.7600571862237508,
+        "MOTA": 0.836810776942356,
+        "IDSW": 33,
+        "Frag": 112,
+        "FP": 285,
+        "FN": 311,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.25_r0.18_n0.0003",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.25,
+        "risk_threshold": 0.18,
+        "novelty_threshold": 0.0003,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 237,
+        "detector_rate": 0.21944444444444444,
+        "HOTA": 0.6785871910631179,
+        "AssA": 0.6415315845751991,
+        "DetA": 0.7503510497812043,
+        "IDF1": 0.7582314629431294,
+        "MOTA": 0.8329086605402395,
+        "IDSW": 33,
+        "Frag": 114,
+        "FP": 287,
+        "FN": 325,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.25_r0.28_n8e-05",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.25,
+        "risk_threshold": 0.28,
+        "novelty_threshold": 8e-05,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 232,
+        "detector_rate": 0.21481481481481482,
+        "HOTA": 0.7001806702426149,
+        "AssA": 0.6681451450340726,
+        "DetA": 0.7608293696777761,
+        "IDF1": 0.7907168761190371,
+        "MOTA": 0.8521807992202728,
+        "IDSW": 32,
+        "Frag": 110,
+        "FP": 261,
+        "FN": 283,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.25_r0.28_n0.0003",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.25,
+        "risk_threshold": 0.28,
+        "novelty_threshold": 0.0003,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 232,
+        "detector_rate": 0.21481481481481482,
+        "HOTA": 0.7001806702426149,
+        "AssA": 0.6681451450340726,
+        "DetA": 0.7608293696777761,
+        "IDF1": 0.7907168761190371,
+        "MOTA": 0.8521807992202728,
+        "IDSW": 32,
+        "Frag": 110,
+        "FP": 261,
+        "FN": 283,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.5_r0.12_n8e-05",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.5,
+        "risk_threshold": 0.12,
+        "novelty_threshold": 8e-05,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 395,
+        "detector_rate": 0.36574074074074076,
+        "HOTA": 0.7297109042258146,
+        "AssA": 0.69290844640852,
+        "DetA": 0.7998207163854226,
+        "IDF1": 0.7954184353759971,
+        "MOTA": 0.895490462266778,
+        "IDSW": 25,
+        "Frag": 48,
+        "FP": 249,
+        "FN": 125,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.5_r0.12_n0.0003",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.5,
+        "risk_threshold": 0.12,
+        "novelty_threshold": 0.0003,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 395,
+        "detector_rate": 0.36574074074074076,
+        "HOTA": 0.7292273869196427,
+        "AssA": 0.6922502937521583,
+        "DetA": 0.8008038962750921,
+        "IDF1": 0.7935783040290901,
+        "MOTA": 0.8975737956001115,
+        "IDSW": 26,
+        "Frag": 47,
+        "FP": 246,
+        "FN": 118,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.5_r0.18_n8e-05",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.5,
+        "risk_threshold": 0.18,
+        "novelty_threshold": 8e-05,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 389,
+        "detector_rate": 0.36018518518518516,
+        "HOTA": 0.7293532896233009,
+        "AssA": 0.6935214563930164,
+        "DetA": 0.7975292994138982,
+        "IDF1": 0.7947129814148389,
+        "MOTA": 0.8913951545530493,
+        "IDSW": 24,
+        "Frag": 46,
+        "FP": 254,
+        "FN": 134,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.5_r0.18_n0.0003",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.5,
+        "risk_threshold": 0.18,
+        "novelty_threshold": 0.0003,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 387,
+        "detector_rate": 0.35833333333333334,
+        "HOTA": 0.7274586679447346,
+        "AssA": 0.6913087781039788,
+        "DetA": 0.7977633228390274,
+        "IDF1": 0.7921934462414985,
+        "MOTA": 0.8909321915900863,
+        "IDSW": 27,
+        "Frag": 45,
+        "FP": 256,
+        "FN": 131,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.5_r0.28_n8e-05",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.5,
+        "risk_threshold": 0.28,
+        "novelty_threshold": 8e-05,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 374,
+        "detector_rate": 0.34629629629629627,
+        "HOTA": 0.7367760871970699,
+        "AssA": 0.7102587586311002,
+        "DetA": 0.7934744473533151,
+        "IDF1": 0.8182800698542639,
+        "MOTA": 0.8920861180729602,
+        "IDSW": 24,
+        "Frag": 52,
+        "FP": 248,
+        "FN": 138,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    },
+    {
+      "config": {
+        "name": "adaptive_b0.5_r0.28_n0.0003",
+        "schedule": "adaptive",
+        "association": "two_stage",
+        "target_rate": 0.5,
+        "risk_threshold": 0.28,
+        "novelty_threshold": 0.0003,
+        "max_gap": 8
+      },
+      "validation": {
+        "sequences": 6,
+        "frames": 1080,
+        "detector_calls": 374,
+        "detector_rate": 0.34629629629629627,
+        "HOTA": 0.7365421898052432,
+        "AssA": 0.709441470621973,
+        "DetA": 0.7959668181424379,
+        "IDF1": 0.8172276061328732,
+        "MOTA": 0.8975424672793094,
+        "IDSW": 24,
+        "Frag": 50,
+        "FP": 232,
+        "FN": 130,
+        "targets": 31,
+        "missed_targets": 0,
+        "short_targets": 9,
+        "missed_short_targets": 0,
+        "aggregation": "HOTA/IDF1 are unweighted sequence means, NOT pooled official benchmark scores; counts summed; detector rate frame-weighted"
+      }
+    }
+  ]
+}
