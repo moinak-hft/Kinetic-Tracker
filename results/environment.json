@@ -1,0 +1,22 @@
+{
+  "Date": "2026-11-07",
+  "Cpu": {
+    "Name": "AMD Ryzen 9 8945HS w/ Radeon 780M Graphics",
+    "NumberOfCores": 8,
+    "NumberOfLogicalProcessors": 16
+  },
+  "Memory": {
+    "TotalVisibleMemorySize": 15973596
+  },
+  "Gpu": [
+    {
+      "Name": "NVIDIA GeForce RTX 4060 Laptop GPU"
+    },
+    {
+      "Name": "AMD Radeon(TM) Graphics"
+    }
+  ],
+  "Backend": "OpenCV DNN CPU; GPUs listed for transparency, not used",
+  "Python": "Python 3.14.4",
+  "Compiler": "15.2.0"
+}

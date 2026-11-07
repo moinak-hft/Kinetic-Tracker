@@ -1,0 +1,52 @@
+{
+  "kind": "cached_tracking_comparison_video",
+  "sequence": "E:\\Kinetic-Tracker-dev\\data\\synthetic\\test\\background_motion",
+  "sequence_name": "background_motion",
+  "source_metadata_sha256": "085f28447d5f149cbc6f2d694cd7a2a0e1d4f869f6506af19d672b4f113daa1e",
+  "source_image_content_sha256": "b89de206ddacfef5d2d50399792b8af31efeafaf4ebc28708b29eb8b64156186",
+  "source_frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+  "output": "E:\\Kinetic-Tracker-dev\\results\\background_failure.mp4",
+  "output_sha256": "e10fd90bff16bb80e5f320cd1b710498df2f9d937ffc87c2dcd77db0dca5cf33",
+  "frames": 180,
+  "width": 1292,
+  "height": 582,
+  "playback_fps": 25.0,
+  "encoder": "FFmpeg libx264 / yuv420p / CRF20 / faststart",
+  "all_source_frames_retained": true,
+  "decoded_output_frames_verified": 180,
+  "detector_execution": "none; this tool only renders saved tracking outputs",
+  "timing_claim": "Playback rate and cached replay do not measure live inference latency or source capture FPS.",
+  "attribution": {
+    "kind": "synthetic",
+    "source": "tools/generate_synthetic.py",
+    "license": "Repository source and generated synthetic assets: MIT"
+  },
+  "methods": [
+    {
+      "label": "Uniform: matched detector calls",
+      "directory": "E:\\Kinetic-Tracker-dev\\runs\\synthetic_test\\background_motion\\matched_adaptive50",
+      "input_hashes": {
+        "summary.json": "e66de07e869fe76b44d1671eaa668d6213aa16341ce8a84a889085bee5d6594c",
+        "frames.csv": "30f2606dc092d42fe05a54d34618169bf4dd8f8be90179be49f2f76e4a0da4f9",
+        "telemetry.csv": "522b03831ebf8a4c1c5bce66fb273f52eb825561d6d44683b0048edffc9383c8"
+      },
+      "detector_calls": 90,
+      "total_frames": 180,
+      "schedule": "uniform",
+      "association": "two_stage"
+    },
+    {
+      "label": "Adaptive: same call budget",
+      "directory": "E:\\Kinetic-Tracker-dev\\runs\\synthetic_test\\background_motion\\adaptive50",
+      "input_hashes": {
+        "summary.json": "5798097ee85e2f74f95d6111e81f455fd181dd4f8b9fbf492ad1ee7e70116c0b",
+        "frames.csv": "9768e9dc2358a01b7dc409280538a47d390279d0315b4b797f3779bc6c934122",
+        "telemetry.csv": "c60c9db65d9a8cab3361b26af883ef26283715eb816d316dd7200f4b3d9757e4"
+      },
+      "detector_calls": 90,
+      "total_frames": 180,
+      "schedule": "adaptive",
+      "association": "two_stage"
+    }
+  ]
+}

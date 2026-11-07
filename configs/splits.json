@@ -1,0 +1,88 @@
+{
+  "synthetic": {
+    "policy": "Independent deterministic validation/test seeds within the same six scenario families. No synthetic training is performed.",
+    "validation": [
+      "data/synthetic/validation/easy",
+      "data/synthetic/validation/crossings",
+      "data/synthetic/validation/abrupt_turns",
+      "data/synthetic/validation/occlusion",
+      "data/synthetic/validation/births",
+      "data/synthetic/validation/background_motion"
+    ],
+    "test": [
+      "data/synthetic/test/easy",
+      "data/synthetic/test/crossings",
+      "data/synthetic/test/abrupt_turns",
+      "data/synthetic/test/occlusion",
+      "data/synthetic/test/births",
+      "data/synthetic/test/background_motion"
+    ]
+  },
+  "native_bee": {
+    "policy": "Entire recording days are disjoint across splits; same camera and hive, so no cross-camera generalisation claim.",
+    "date_groups": {
+      "train": [
+        "20240411",
+        "20240412",
+        "20240423"
+      ],
+      "validation": [
+        "20240502",
+        "20240531"
+      ],
+      "test": [
+        "20240420",
+        "20240505"
+      ]
+    },
+    "train": [
+      "data/native_bee/Camera_43_20240411_113937",
+      "data/native_bee/Camera_43_20240411_130947",
+      "data/native_bee/Camera_43_20240412_130142",
+      "data/native_bee/Camera_43_20240412_140149",
+      "data/native_bee/Camera_43_20240423_103802",
+      "data/native_bee/Camera_43_20240423_124240"
+    ],
+    "validation": [
+      "data/native_bee/Camera_43_20240502_140512",
+      "data/native_bee/Camera_43_20240502_150518",
+      "data/native_bee/Camera_43_20240531_133832",
+      "data/native_bee/Camera_43_20240531_143838"
+    ],
+    "test": [
+      "data/native_bee/Camera_43_20240420_153908",
+      "data/native_bee/Camera_43_20240505_130943",
+      "data/native_bee/Camera_43_20240505_170358"
+    ],
+    "excluded": [
+      {
+        "sequence": "Camera_43_20240611_143758",
+        "available_frames": 6,
+        "reason": "fewer than 20 available frames"
+      },
+      {
+        "sequence": "Camera_43_20240619_143401",
+        "available_frames": 19,
+        "reason": "fewer than 20 available frames"
+      },
+      {
+        "sequence": "Camera_43_20240619_150759",
+        "available_frames": 9,
+        "reason": "fewer than 20 available frames"
+      }
+    ]
+  },
+  "gmot40": {
+    "policy": "Whole insect sequences: insect-0 train, insect-1 validation, insect-2/3 held-out test. Custom subset protocol; source recording session independence beyond sequence IDs is not verified.",
+    "train": [
+      "data/gmot40/insect-0"
+    ],
+    "validation": [
+      "data/gmot40/insect-1"
+    ],
+    "test": [
+      "data/gmot40/insect-2",
+      "data/gmot40/insect-3"
+    ]
+  }
+}

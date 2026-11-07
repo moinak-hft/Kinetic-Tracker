@@ -1,0 +1,57 @@
+{
+  "kind": "cached_tracking_comparison_video",
+  "sequence": "E:\\Kinetic-Tracker-dev\\data\\gmot40\\insect-3",
+  "sequence_name": "insect-3",
+  "source_metadata_sha256": "8fc16e96d9e3ac17ffcf5704d922ccd0fc64ef319edf43e7fcf88fa6f7663ab9",
+  "source_image_content_sha256": "6d5ded8669a45ab51ec2dca748f49461545b5a0e49ac3b4ac63ff9aadf9e3571",
+  "source_frame_times_sha256": "0ac97f3ff1956982a7cd6552d1d25ee051828636480897ebccf085bc4c3dd740",
+  "output": "E:\\Kinetic-Tracker-dev\\results\\gmot_comparison.mp4",
+  "output_sha256": "0407d7e26658db8da2ae5926d70bb276bec97b0b698abbf134dde1eaca4bb42a",
+  "frames": 247,
+  "width": 1612,
+  "height": 672,
+  "playback_fps": 25.0,
+  "encoder": "FFmpeg libx264 / yuv420p / CRF20 / faststart",
+  "all_source_frames_retained": true,
+  "decoded_output_frames_verified": 247,
+  "detector_execution": "none; this tool only renders saved tracking outputs",
+  "timing_claim": "Playback rate and cached replay do not measure live inference latency or source capture FPS.",
+  "attribution": {
+    "kind": "real_author_dataset",
+    "source": "https://spritea.github.io/GMOT40/download.html",
+    "author_repository": "https://github.com/Spritea/GMOT40",
+    "license": "CC BY-NC-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "attribution": "Hexin Bai, Wensheng Cheng, Peng Chu, Kai Zhang and Haibin Ling. GMOT-40: A Benchmark for Generic Multiple Object Tracking. CVPR 2021.",
+    "derivative_video_license": "CC BY-NC-SA 4.0",
+    "original_watermarks": "Preserved in source frames."
+  },
+  "methods": [
+    {
+      "label": "Corrected SORT",
+      "directory": "E:\\Kinetic-Tracker-dev\\runs\\gmot40_test\\insect-3\\every_sort",
+      "input_hashes": {
+        "summary.json": "a82aa06b3d63b445c5c15403d0e084efe7e9eb8211ebc6e2cf09eb1d3d7b26f4",
+        "frames.csv": "05137524628fc4b73f61029df557779b1649079046d5d45ff7847dc938daf19b",
+        "telemetry.csv": "6e4153df98451f67206d7c10791999f2a9a3704742b62c18206100763c6c6953"
+      },
+      "detector_calls": 247,
+      "total_frames": 247,
+      "schedule": "every",
+      "association": "sort"
+    },
+    {
+      "label": "Two-stage association",
+      "directory": "E:\\Kinetic-Tracker-dev\\runs\\gmot40_test\\insect-3\\every_two_stage",
+      "input_hashes": {
+        "summary.json": "75365acd6fb1168f85370432bd9d2c91afce4b3d5c35706baf1ddf88b41fd637",
+        "frames.csv": "1ff6c170e27fa3dc9096971ff7550f44baecadd9ea5ba7094ce05972390ed150",
+        "telemetry.csv": "33424209f6069e1521865e7535856a87ce74d7a35585471b3d0080db34126a16"
+      },
+      "detector_calls": 247,
+      "total_frames": 247,
+      "schedule": "every",
+      "association": "two_stage"
+    }
+  ]
+}

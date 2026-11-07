@@ -1,0 +1,64 @@
+[
+  {
+    "name": "every_sort",
+    "schedule": "every",
+    "association": "sort"
+  },
+  {
+    "name": "every_two_stage",
+    "schedule": "every",
+    "association": "two_stage"
+  },
+  {
+    "name": "fixed2",
+    "schedule": "fixed",
+    "interval": 2,
+    "association": "two_stage"
+  },
+  {
+    "name": "fixed4",
+    "schedule": "fixed",
+    "interval": 4,
+    "association": "two_stage"
+  },
+  {
+    "name": "fixed8",
+    "schedule": "fixed",
+    "interval": 8,
+    "association": "two_stage"
+  },
+  {
+    "name": "covariance50",
+    "schedule": "covariance",
+    "association": "two_stage",
+    "target_rate": 0.5,
+    "risk_threshold": 0.28,
+    "max_gap": 8
+  },
+  {
+    "name": "risk50",
+    "schedule": "risk",
+    "association": "two_stage",
+    "target_rate": 0.5,
+    "risk_threshold": 0.28,
+    "max_gap": 8
+  },
+  {
+    "name": "adaptive25",
+    "schedule": "adaptive",
+    "association": "two_stage",
+    "target_rate": 0.25,
+    "risk_threshold": 0.28,
+    "novelty_threshold": 8e-05,
+    "max_gap": 8
+  },
+  {
+    "name": "adaptive50",
+    "schedule": "adaptive",
+    "association": "two_stage",
+    "target_rate": 0.5,
+    "risk_threshold": 0.28,
+    "novelty_threshold": 8e-05,
+    "max_gap": 8
+  }
+]

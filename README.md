@@ -1,74 +1,159 @@
-# Kinetic-Tracker: Bare-Metal Edge Inference System
+# Kinetic-Tracker
 
-**Kinetic-Tracker** (powered by the AlphaTracker engine) is a real-time, C++ based Multi-Object Tracking (MOT) architecture designed for agricultural pest detection. It bypasses the latency constraints of standard Python environments by executing the neural network forward passes and tracking physics entirely on the edge using OpenCV DNN and ONNX graph serialization.
+**Native C++ tracking, budgeted detection and reproducible multi-object tracking evaluation.**
 
-## Systems Architecture
+This branch extends the original YOLO/OpenCV/SORT demo into an inspectable
+experimental system. It asks when a detector can be skipped while preserving
+identities and discovering newly visible objects. The application focus is
+insect monitoring; current results are small-sample research evidence, not a
+state-of-the-art or agricultural field-deployment claim.
 
-Successfully tracking objects in high-noise environments requires more than just a neural network. This engine implements a custom **Simple Online and Realtime Tracking (SORT)** pipeline to resolve track fragmentation and hardware occlusion.
+**Start with [the measured report](results/REPORT.md), [offline results explorer](results/report.html),
+[reproduction commands](docs/REPRODUCE.md) and [comparison video](results/gmot_comparison.mp4).**
 
-* **Detection (YOLOv8):** Ingests raw video frames and outputs bounding box coordinates via an ONNX-serialized YOLOv8 model (`best.onnx`).
-* **Prediction (Kalman Filters):** Actively predicts the velocity and trajectory matrices of bounding boxes across temporal frames.
-* **Assignment (Hungarian Algorithm):** Computes the globally optimal Intersection over Union (IoU) assignment matrix in $O(N^3)$ time complexity, guaranteeing entity ID persistence even when detection confidence fluctuates.
+![Tracking quality versus actual detector calls](results/quality_compute.png)
 
-## Repository Structure
+## Implemented
 
-* `main.cpp`: The core C++ inference and tracking engine. Handles the video ingestion, OpenCV DNN forward passes, and custom MOT mathematics.
-* `test_matching.cpp`: Unit testing for the Hungarian algorithm and matrix allocation.
-* `CMakeLists.txt`: Build configuration for MSYS2/MinGW environments.
-* `visualize_telemetry.py`: Python visualization script that applies high-pass filters to the raw C++ telemetry to graph continuous spatial vectors.
-* `AlphaTracker_Analysis.ipynb`: The primary data analytics Jupyter Notebook containing the architectural breakdown and trajectory graphs.
-* `best.onnx` / `yolov8n.onnx`: The compiled neural network weights.
+- **C++17 detector:** OpenCV DNN/ONNX inference, tested aspect-preserving
+  letterboxing, inverse coordinates, dynamic YOLOv8 tensor layouts and class-aware NMS.
+- **Tracking core:** timestamp-aware eight-state Kalman motion, full box geometry,
+  class-aware gated Hungarian matching, tentative/confirmed/lost states,
+  observation-based expiry and explicit observed/predicted telemetry.
+- **Association choices:** corrected SORT-style matching and a confidence-based
+  two-stage implementation inspired by ByteTrack. It is not mislabelled as the
+  full official ByteTrack implementation.
+- **Budgeted scheduling:** covariance, overlap risk and a raw-frame foreground
+  signal; a capacity-two token bucket enforces a causal detector-call budget.
+  Uniform controls exactly match each adaptive run's total detector calls.
+- **Evaluation:** pinned official TrackEval HOTA/AssA/IDF1/CLEAR metrics, official
+  OC-SORT and ByteTrack tracking-only references, strict MOT validation,
+  sequence splits, input hashes and documented compatibility adapters.
+- **Evidence:** synthetic failure scenarios, natural GMOT-40 insect clips,
+  processed bee/oracle diagnostics, real ONNX transfer probes, stage timings,
+  repeated uncached CPU measurements and comparison videos.
+- **Safety/reliability:** no default GUI window; rejected input/output collisions,
+  validated timestamps/geometry, safe archive preparation, isolated Python
+  dependencies, CTest and semantic/CLI/data/evaluation/rendering tests.
 
-## Performance & Telemetry
+## What the measurements support
 
-The C++ pipeline is profiled using `cv::TickMeter` to strictly measure raw inference latency. The engine continuously streams spatial coordinates (X, Y, Width, Height) to a local CSV for post-execution analytics.
+The frozen all-estimate-output study uses identical author-provided detections
+on two natural GMOT-40 insect clips (348 frames). HOTA and IDF1 below are
+**unweighted sequence means**, not pooled official benchmark scores.
 
-* **CPU Fallback Latency:** ~99.4 ms
-* **Frames Per Second:** ~10.1 FPS
-* **Fragmentation Resolution:** The Kalman filter successfully bridges 3-frame occlusion gaps, maintaining unbroken ID locks without re-assignment.
+| Method | Detector calls | HOTA | IDF1 |
+| --- | ---: | ---: | ---: |
+| Corrected SORT-style baseline | 100% | 26.25 | 35.89 |
+| Local two-stage association | 100% | 29.30 | 41.36 |
+| Official OC-SORT | 100% | 27.07 | 39.24 |
+| Official ByteTrack with compatibility adapters | 100% | 23.43 | 32.72 |
 
-## Build and Execution
+These are association comparisons on supplied detector caches. They do not
+establish the accuracy of this project's original ONNX detector, whose transfer
+to the natural insect clips is weak and whose training provenance is missing.
 
-**1. Compile the C++ Engine**
-Ensure you have MSYS2 and MinGW installed with the OpenCV libraries.
-```bash
-mkdir build
-cd build
-cmake ..
-mingw32-make
+At matched detector-call counts, adaptive scheduling has modest gains on the
+synthetic suite. It **does not beat periodic detection on the natural test
+clips**. Background motion saturates its risk trigger under the budget cap.
+This negative result, per-sequence failures and the stronger references remain
+visible in the report.
+
+An output-policy diagnostic was added after inspecting first-pass test errors,
+then checked on validation. It is explicitly **post-hoc exploratory analysis**.
+The CLI now defaults to `active`, suppressing unmatched lost boxes from scored
+output while preserving telemetry and deliberate-skip predictions. The primary
+study explicitly retains `--output-policy all`; results from these policies are
+not silently mixed. See [methodology](docs/METHOD.md).
+
+## Quick start on the tested Windows setup
+
+Prerequisites: an existing MSYS2 UCRT64 compiler/OpenCV4 SDK and Python. Exact
+tested packages are in `requirements-lock.txt`; alternate setup is documented
+in [REPRODUCE.md](docs/REPRODUCE.md).
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --index-url https://pypi.org/simple -r requirements-lock.txt
+.\scripts\build.ps1
+
+.\scripts\run.ps1 --video test_video.mp4 --model best.onnx --association two_stage --threads 8 --output runs\demo --output-video runs\demo\annotated.mp4
 ```
 
-**2. Run the Inference**
-Execute the compiled binary to process the video and generate the `flight_telemetry.csv` file.
-```bash
-./AlphaTracker.exe
+The original model and sample remain available. `--preview` opens an optional
+window; the default processes files headlessly. Use a fresh output directory
+when preserving old runs. The system refuses to overwrite an input asset with
+an output. Existing generated files in a selected run folder are replaced.
+Confidence is the last detector score, not a calibrated tracking probability.
+
+For the capped scheduler:
+
+```powershell
+.\scripts\run.ps1 --video test_video.mp4 --model best.onnx --association two_stage --schedule adaptive --target-rate 0.5 --risk-threshold 0.28 --novelty-threshold 0.00008 --max-gap 8 --threads 8 --output runs\adaptive
 ```
 
-**3. Generate the Analytics**
-Execute the Jupyter Notebook or run the Python script to render the flight path trajectories.
-```bash
-pip install pandas matplotlib seaborn
-python visualize_telemetry.py
+The budget includes an initial detector call:
+`calls(n) <= floor(1 + target_rate * (n - 1))`. A finite clip can therefore show
+slightly more than the nominal percentage. A maximum gap requests a refresh;
+the hard budget takes precedence. Exact uniform rate-matched controls know the
+clip horizon and final call count, so they are retrospective experimental controls.
+
+## Data and reproducibility
+
+```powershell
+.\.venv\Scripts\python.exe tools\generate_synthetic.py
+.\.venv\Scripts\python.exe tools\prepare_data.py --download --export-yolo
+.\.venv\Scripts\python.exe tools\prepare_data.py --gmot --download
+
+.\.venv\Scripts\python.exe tools\benchmark.py --dataset gmot40 --split test --configs configs\study.json --matched --output runs\gmot40_test
+.\.venv\Scripts\python.exe tools\reference_benchmark.py --dataset gmot40 --split test --source provided
 ```
 
-**4. Execute Your Own Custom Version**
-To run the Kinetic-Tracker architecture on your own footage or custom-trained neural networks, replace the target assets in the root directory:
+Downloads are pinned to official author/university sources with checksums and
+safe extraction. GMOT insect images are retrieved selectively, avoiding the
+full1.5GB archive. Raw data, `.venv`, detailed `runs/` and build products are
+ignored by Git. [Data documentation](docs/DATA.md) records licence, annotation
+quarantine, processed-image caveats and nominal timestamp assumptions.
 
-* **Custom Video Tracking:** Place your `.mp4` file in the root directory and rename it to `test_video.mp4`, or manually update the `cv::VideoCapture` target path in `main.cpp`.
-* **Custom YOLOv8 Weights:** If you are using a custom-trained model, export it to ONNX format and place it in the root directory as `best.onnx`.
+The Monash images contain annotation-related ROI masks/counters. Oracle boxes
+there isolate association and must not be presented as detector performance or
+natural new-arrival evidence. GMOT capture FPS is unverified; discovery delays
+are primarily reported in frames.
 
-```bash
-yolo export model=your_custom_model.pt format=onnx
-mingw32-make
-./AlphaTracker.exe
+## Repository map
+
+```text
+include/kinetic/        Detector, tracker and scheduler APIs
+src/                   Native C++ implementation and CLI
+tests/                 C++ and Python semantic/integration tests
+tools/                 Data, benchmarks, references, timing, videos and report
+configs/               Frozen splits, scheduler selection and study settings
+third_party/           Pinned official source subsets, licences and provenance
+results/               Compact measured tables, figures, reports and demo videos
+docs/                  Methodology, architecture, data, related work and reproduction
+scripts/               Windows build/test and DLL-path helpers
+main.cpp               Untouched original implementation, retained for reference
 ```
-## Acknowledgments & References
 
-This inference architecture is built upon the foundational mathematical frameworks established in the following papers:
+The original README is preserved in [docs/ORIGINAL_README.md](docs/ORIGINAL_README.md).
+The earlier notebook and plotting script are historical artifacts, not the new
+evaluation pipeline.
 
-* **SORT Engine:** Bewley, A., Ge, Z., Ott, L., Ramos, F., & Upcroft, B. (2016). *Simple Online and Realtime Tracking*. [arXiv:1602.00763](https://arxiv.org/abs/1602.00763)
-* **Detection Network:** Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. (2016). *You Only Look Once: Unified, Real-Time Object Detection*. [arXiv:1506.02640](https://arxiv.org/abs/1506.02640)
+## Branch workflow
 
-## License
+Development belongs on `research/compute-aware-tracking`; `main` remains the
+original project. See [VS Code/Git instructions](docs/GIT_WORKFLOW.md) to publish
+the branch and optionally open a draft PR without merging it. Share the feature
+branch URL with reviewers once pushed.
 
-This project is open-source and licensed under the MIT License. See the `LICENSE` file for details.
+## Attribution
+
+This work builds on SORT, ByteTrack, OC-SORT and established detection-scheduling
+research, including DriftSched. It does not claim to invent covariance-based
+scheduling. Primary references are in [RELATED_WORK.md](docs/RELATED_WORK.md).
+Pinned code and compatibility changes are documented in `third_party/`.
+
+Project code retains the existing MIT licence. GMOT-40 data/derived videos retain
+their CC BY-NC-SA4.0 attribution; Monash data use CC BY4.0. Dataset terms do not
+change the separately licensed source code. Each demo includes an attribution
+and provenance sidecar.

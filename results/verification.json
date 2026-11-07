@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-07",
+  "ctest_groups_passed": 4,
+  "cpp_semantic_suites": 3,
+  "python_tests_total": 56,
+  "python_skipped": 1,
+  "python_passed": 55,
+  "skip_reason": "Creating a symlink is not permitted under this Windows account; canonical-path and hard-link preservation tests passed. No privilege or security setting was changed.",
+  "checks": [
+    "C++ tracker/scheduler/detector semantic suites",
+    "Python CLI/data/evaluation/reference/video/output safety",
+    "Actual H264 demo decode frame counts",
+    "Live detector extraction parity: identical three-frame detection CSV SHA256",
+    "Desktop and narrow-layout report inspection"
+  ],
+  "final_fixes": "Python input/output alias guards, custom-build executable selection, and matched-control setting preservation. Metric formulas and native tracking behavior unchanged.",
+  "original_main_commit": "377ee2052cb04257184aba469df75512c5585224",
+  "scope": "Feature branch local; original downloaded folder and main retained. Benchmarks retain their original executable/input hashes; guarded file-writing changes do not alter reported metric formulas."
+}
