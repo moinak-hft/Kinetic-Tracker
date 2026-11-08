@@ -1,0 +1,57 @@
+{
+  "kind": "cached_tracking_comparison_video",
+  "sequence": "D:\\Kinetic-Tracker-main\\data\\gmot40_confirmation\\balloon-2",
+  "sequence_name": "balloon-2",
+  "source_metadata_sha256": "af989381aa856e158c657cb905133e6f90ced6556233f5a622d149c40de2c2ee",
+  "source_image_content_sha256": "8f9d52a49a57a2377da70902892ed4641542fd03ada3df09e2831cd254888fe0",
+  "source_frame_times_sha256": "ff46fa311427027aecc3bd8e24e52f256a4567a69ff3a8180db1a514f9fe006b",
+  "output": "D:\\Kinetic-Tracker-main\\results\\refinement\\demo_balloon-2.mp4",
+  "output_sha256": "5691134cdb0c7577d1853d86622d7b0f90552e18ee223820274f3f2fdce97fc7",
+  "frames": 151,
+  "width": 1292,
+  "height": 582,
+  "playback_fps": 25.0,
+  "encoder": "FFmpeg libx264 / yuv420p / CRF20 / faststart",
+  "all_source_frames_retained": true,
+  "decoded_output_frames_verified": 151,
+  "detector_execution": "none; this tool only renders saved tracking outputs",
+  "timing_claim": "Playback rate and cached replay do not measure live inference latency or source capture FPS.",
+  "attribution": {
+    "kind": "real_author_dataset",
+    "source": "https://spritea.github.io/GMOT40/download.html",
+    "author_repository": "https://github.com/Spritea/GMOT40",
+    "license": "CC BY-NC-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "attribution": "Hexin Bai, Wensheng Cheng, Peng Chu, Kai Zhang and Haibin Ling. GMOT-40: A Benchmark for Generic Multiple Object Tracking. CVPR 2021.",
+    "derivative_video_license": "CC BY-NC-SA 4.0",
+    "original_watermarks": "Preserved in source frames."
+  },
+  "methods": [
+    {
+      "label": "V2: detect every2frames",
+      "directory": "D:\\Kinetic-Tracker-main\\runs\\refinement\\confirmation\\gmot40_confirmation__balloon-2\\baseline_v2\\fixed2\\active",
+      "input_hashes": {
+        "summary.json": "ecea0490e5aea96200d581bf40effe43b6b1ee9492c6d2889c8f9b848a83c5d8",
+        "frames.csv": "e94596e8cb9fcfc0bfe980af7311458fc5a9b1a7b05d7f38ca767e0841495894",
+        "telemetry.csv": "5baa3893545e81e21fb0675b7490075fa6d084276fe1f7bde39f47840cf1d63b"
+      },
+      "detector_calls": 76,
+      "total_frames": 151,
+      "schedule": "fixed",
+      "association": "two_stage"
+    },
+    {
+      "label": "Hybrid motion: detect every2frames",
+      "directory": "D:\\Kinetic-Tracker-main\\runs\\refinement\\confirmation\\gmot40_confirmation__balloon-2\\motion_hybrid_full\\fixed2\\active",
+      "input_hashes": {
+        "summary.json": "9da2b8f3bc18928844e090f9304244708a14c26373d0c6e5750921489c7d17f5",
+        "frames.csv": "d329af1e865491e2a1c543792b60f1220870ce503a2c5b9749052adcbcc0a669",
+        "telemetry.csv": "443037c195c1da3dd46bf33714decf4d5db1d23c1d75defc82ad9d043daab7ac"
+      },
+      "detector_calls": 76,
+      "total_frames": 151,
+      "schedule": "fixed",
+      "association": "motion"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "kind": "cached_tracking_comparison_video",
+  "sequence": "D:\\Kinetic-Tracker-main\\data\\synthetic\\test\\background_motion",
+  "sequence_name": "background_motion",
+  "source_metadata_sha256": "085f28447d5f149cbc6f2d694cd7a2a0e1d4f869f6506af19d672b4f113daa1e",
+  "source_image_content_sha256": "b89de206ddacfef5d2d50399792b8af31efeafaf4ebc28708b29eb8b64156186",
+  "source_frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+  "output": "D:\\Kinetic-Tracker-main\\results\\refinement\\demo_background.mp4",
+  "output_sha256": "c0fb034060e4c578e99ccb0d74a2c093ccf3938506ecf194c264e7aa01e0ba4c",
+  "frames": 180,
+  "width": 1292,
+  "height": 582,
+  "playback_fps": 25.0,
+  "encoder": "FFmpeg libx264 / yuv420p / CRF20 / faststart",
+  "all_source_frames_retained": true,
+  "decoded_output_frames_verified": 180,
+  "detector_execution": "none; this tool only renders saved tracking outputs",
+  "timing_claim": "Playback rate and cached replay do not measure live inference latency or source capture FPS.",
+  "attribution": {
+    "kind": "synthetic",
+    "source": "tools/generate_synthetic.py",
+    "license": "Repository source and generated synthetic assets: MIT"
+  },
+  "methods": [
+    {
+      "label": "Legacy scene cue, active risk",
+      "directory": "D:\\Kinetic-Tracker-main\\runs\\refinement\\exploratory\\synthetic__test__background_motion\\motion_hybrid_full\\adaptive50_legacy_active\\active",
+      "input_hashes": {
+        "summary.json": "e185480bcfd10664f7dbde42b198683de0ef69b114e860a237d67d8becd4bc70",
+        "frames.csv": "0a49b025ca65638f7520e13f0d9d1ae4b2b228e301be7153b01ba7941ff843e8",
+        "telemetry.csv": "640ac324b3d306713c5f49e497111b6b3345cba2dfceda88b338ad55cb240ae9"
+      },
+      "detector_calls": 90,
+      "total_frames": 180,
+      "schedule": "adaptive",
+      "association": "motion"
+    },
+    {
+      "label": "Robust scene cue, active risk",
+      "directory": "D:\\Kinetic-Tracker-main\\runs\\refinement\\exploratory\\synthetic__test__background_motion\\motion_hybrid_full\\adaptive50_robust_active\\active",
+      "input_hashes": {
+        "summary.json": "ade1e9ffd093083eb39dcae8f4489f664e1a9f06fbeb9d8bc2672a2d827d4e63",
+        "frames.csv": "0f54517732168fcb268bc4586d31ea4b1de1ef14b55641840b5056eb8349f71a",
+        "telemetry.csv": "640ac324b3d306713c5f49e497111b6b3345cba2dfceda88b338ad55cb240ae9"
+      },
+      "detector_calls": 90,
+      "total_frames": 180,
+      "schedule": "adaptive",
+      "association": "motion"
+    }
+  ]
+}

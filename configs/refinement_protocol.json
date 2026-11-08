@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "name": "kinetic-motion-refinement-v1",
+  "primary_output_policy": "active",
+  "diagnostic_output_policy": "all",
+  "scope": "Earlier insect/synthetic test results have been inspected and are reused exploratory development evidence. Nine new non-insect GMOT40 category clips are predeclared confirmation, scored only after validation selection is frozen.",
+  "executables": {
+    "baseline_v2": "work/kinetic_baseline_v2.exe",
+    "current": "build/kinetic_tracker.exe"
+  },
+  "shared_tracker": {
+    "min_hits": 1,
+    "iou": 0.1,
+    "prediction_age": 0.24,
+    "max_age": 0.75,
+    "high": 0.35,
+    "low": 0.08
+  },
+  "profiles": {
+    "baseline_v2": {
+      "executable": "baseline_v2",
+      "description": "Frozen previous executable, identical active output/shared tracker rules.",
+      "args": {
+        "association": "two_stage"
+      },
+      "selection_eligible": false
+    },
+    "two_stage": {
+      "executable": "current",
+      "description": "New executable backward-compatible two-stage control.",
+      "args": {
+        "association": "two_stage"
+      },
+      "selection_eligible": true
+    },
+    "motion_uncertainty": {
+      "executable": "current",
+      "description": "Uncertainty hard gate and soft Mahalanobis cost; direction and endpoint recovery disabled.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0.25,
+        "motion_direction_weight": 0,
+        "motion_recovery": 0,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03
+      },
+      "selection_eligible": true
+    },
+    "motion_direction": {
+      "executable": "current",
+      "description": "Direction cost with uncertainty hard gating retained; no soft Mahalanobis cost or endpoint recovery. Not a pure direction-only gate.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0,
+        "motion_direction_weight": 0.1,
+        "motion_recovery": 0,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03
+      },
+      "selection_eligible": true
+    },
+    "motion_full": {
+      "executable": "current",
+      "description": "Uncertainty/direction costs and post-gap endpoint velocity recovery; not full OC-SORT ORU.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0.25,
+        "motion_direction_weight": 0.1,
+        "motion_recovery": 1,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03
+      },
+      "selection_eligible": true
+    },
+    "motion_full_gate25": {
+      "executable": "current",
+      "description": "Single declared alternative gate25 with other full-profile knobs fixed.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 25,
+        "motion_mahalanobis_weight": 0.25,
+        "motion_direction_weight": 0.1,
+        "motion_recovery": 1,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03
+      },
+      "selection_eligible": true
+    },
+    "motion_hybrid_iou": {
+      "executable": "current",
+      "description": "Validation-stage amendment: high-IoU fallback retains strict non-overlap uncertainty/ambiguity guards; original strict failures remain reported.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0,
+        "motion_direction_weight": 0,
+        "motion_recovery": 0,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03,
+        "motion_overlap_fallback": 1
+      },
+      "selection_eligible": true
+    },
+    "motion_hybrid_full": {
+      "executable": "current",
+      "description": "Validation-stage amendment: high-IoU fallback retains strict non-overlap uncertainty/ambiguity guards; original strict failures remain reported.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0.25,
+        "motion_direction_weight": 0.1,
+        "motion_recovery": 1,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03,
+        "motion_overlap_fallback": 1
+      },
+      "selection_eligible": true
+    },
+    "motion_hybrid_no_recovery": {
+      "executable": "current",
+      "description": "Validation-stage amendment: high-IoU fallback retains strict non-overlap uncertainty/ambiguity guards; original strict failures remain reported.",
+      "args": {
+        "association": "motion",
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0.25,
+        "motion_direction_weight": 0.1,
+        "motion_recovery": 0,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03,
+        "motion_overlap_fallback": 1
+      },
+      "selection_eligible": true
+    },
+    "recovery": {
+      "executable": "current",
+      "description": "Final validation-stage candidate: preserve both IoU confidence passes, then cautiously recover only unmatched confirmed tracks from unmatched high-score detections before birth. Endpoint velocity update only for recovered pairs.",
+      "args": {
+        "association": "recovery",
+        "recovery_gate": 9.2103,
+        "motion_gate": 13.2767,
+        "motion_mahalanobis_weight": 0.25,
+        "motion_direction_weight": 0.1,
+        "motion_recovery": 1,
+        "motion_max_center_distance": 3,
+        "motion_cost_limit": 1,
+        "motion_ambiguity_margin": 0.03
+      },
+      "selection_eligible": true
+    }
+  },
+  "validation_groups": {
+    "synthetic": {
+      "weight": 0.5,
+      "cases": [
+        {
+          "path": "data/synthetic/validation/easy",
+          "source": "provided"
+        },
+        {
+          "path": "data/synthetic/validation/crossings",
+          "source": "provided"
+        },
+        {
+          "path": "data/synthetic/validation/abrupt_turns",
+          "source": "provided"
+        },
+        {
+          "path": "data/synthetic/validation/occlusion",
+          "source": "provided"
+        },
+        {
+          "path": "data/synthetic/validation/births",
+          "source": "provided"
+        },
+        {
+          "path": "data/synthetic/validation/background_motion",
+          "source": "provided"
+        }
+      ]
+    },
+    "raw_insect": {
+      "weight": 0.5,
+      "cases": [
+        {
+          "path": "data/gmot40/insect-1",
+          "source": "provided"
+        }
+      ]
+    }
+  },
+  "selection": {
+    "metric": "source-balanced HOTA: .5*mean(synthetic6)+.5*raw insect-1",
+    "tie_break": "source-balanced IDF1, then prefer unchanged two_stage on an exact tie",
+    "reference_profile": "two_stage",
+    "raw_guard_group": "raw_insect",
+    "max_raw_hota_drop": 0.005,
+    "schedule": "every",
+    "output_policy": "active",
+    "test_tuning": false
+  },
+  "exploratory_cases": [
+    {
+      "path": "data/synthetic/test/easy",
+      "source": "provided"
+    },
+    {
+      "path": "data/synthetic/test/crossings",
+      "source": "provided"
+    },
+    {
+      "path": "data/synthetic/test/abrupt_turns",
+      "source": "provided"
+    },
+    {
+      "path": "data/synthetic/test/occlusion",
+      "source": "provided"
+    },
+    {
+      "path": "data/synthetic/test/births",
+      "source": "provided"
+    },
+    {
+      "path": "data/synthetic/test/background_motion",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40/insect-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40/insect-3",
+      "source": "provided"
+    }
+  ],
+  "diagnostic_cases": [
+    {
+      "path": "data/native_bee/Camera_43_20240420_153908",
+      "source": "oracle"
+    },
+    {
+      "path": "data/native_bee/Camera_43_20240505_130943",
+      "source": "oracle"
+    },
+    {
+      "path": "data/native_bee/Camera_43_20240505_170358",
+      "source": "oracle"
+    }
+  ],
+  "confirmation_cases": [
+    {
+      "path": "data/gmot40_confirmation/airplane-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/ball-3",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/balloon-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/bird-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/boat-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/car-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/fish-2",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/person-0",
+      "source": "provided"
+    },
+    {
+      "path": "data/gmot40_confirmation/stock-1",
+      "source": "provided"
+    }
+  ],
+  "confirmation_rules": {
+    "requires_frozen_validation_selection": true,
+    "allow_retuning_after_confirmation": false,
+    "claims": "Nine additional non-insect category clips; not full benchmark or verified recording/session-independent generalization."
+  },
+  "schedules": {
+    "every": {
+      "schedule": "every"
+    },
+    "fixed2": {
+      "schedule": "fixed",
+      "interval": 2
+    },
+    "fixed4": {
+      "schedule": "fixed",
+      "interval": 4
+    },
+    "adaptive50_legacy_all": {
+      "schedule": "adaptive",
+      "target_rate": 0.5,
+      "risk_threshold": 0.28,
+      "novelty_threshold": 8e-05,
+      "max_gap": 8,
+      "scene_method": "legacy",
+      "risk_scope": "all"
+    },
+    "adaptive50_legacy_active": {
+      "schedule": "adaptive",
+      "target_rate": 0.5,
+      "risk_threshold": 0.28,
+      "novelty_threshold": 8e-05,
+      "max_gap": 8,
+      "scene_method": "legacy",
+      "risk_scope": "active"
+    },
+    "adaptive50_robust_all": {
+      "schedule": "adaptive",
+      "target_rate": 0.5,
+      "risk_threshold": 0.28,
+      "novelty_threshold": 8e-05,
+      "max_gap": 8,
+      "scene_method": "robust",
+      "risk_scope": "all"
+    },
+    "adaptive50_robust_active": {
+      "schedule": "adaptive",
+      "target_rate": 0.5,
+      "risk_threshold": 0.28,
+      "novelty_threshold": 8e-05,
+      "max_gap": 8,
+      "scene_method": "robust",
+      "risk_scope": "active"
+    }
+  },
+  "matched_control": "Exact per-sequence realized K calls uniformly over N frames; clone all treatment association, motion, scene, risk_scope and output knobs, change only schedule and uniform_calls. Retrospective content-independent comparator, not causal online scheduling.",
+  "timing_scope": "Cached association/scheduling quality only; no live FPS, new-detector training, or whole-pipeline generalization claim.",
+  "amendments": [
+    {
+      "stage": "After initial strict-motion validation; before any fresh confirmation scoring",
+      "reason": "Strict uncertainty gating regressed on raw insect validation, motivating a bounded high-IoU fallback. All original strict ablations and failures remain reported.",
+      "added_profiles": [
+        "motion_hybrid_iou",
+        "motion_hybrid_full",
+        "motion_hybrid_no_recovery"
+      ],
+      "selection_objective_unchanged": true,
+      "confirmation_not_scored": true
+    },
+    {
+      "stage": "After strict and hybrid motion validation, before any fresh confirmation scoring",
+      "reason": "Global non-overlap edges can displace strong IoU matches. One final recovery-only association preserves the original two IoU passes before considering cautious unmatched high-score recovery.",
+      "added_profiles": [
+        "recovery"
+      ],
+      "selection_objective_unchanged": true,
+      "confirmation_not_scored": true,
+      "no_additional_grid": true
+    },
+    {
+      "stage": "Before any confirmation scoring or freeze; after user requested5\u201310 more videos",
+      "reason": "Expand confirmation beyond bees/insects to nine additional categories. Index2 except ball3/person0/stock1 to keep selected image archive bytes under300MB; no performance-based selection.",
+      "confirmation_not_scored": true,
+      "selection_objective_unchanged": true,
+      "added_confirmation_cases": [
+        "airplane-2",
+        "ball-3",
+        "balloon-2",
+        "bird-2",
+        "boat-2",
+        "car-2",
+        "fish-2",
+        "person-0",
+        "stock-1"
+      ]
+    }
+  ],
+  "secondary_selection": {
+    "purpose": "Separately select budget_profile for miss/skip recovery on fixed2 validation, before fresh confirmation.",
+    "validation_groups": "Same synthetic/raw-insect groups and .5/.5 weights as primary selection",
+    "association_selection": "Evaluate all predeclared profiles at fixed2; maximize source-balanced HOTA, tie-break source-balanced IDF1, prefer unchanged two_stage on exact tie.",
+    "reference_profile": "two_stage",
+    "reference_schedule": "fixed2",
+    "max_raw_hota_drop": 0.005,
+    "schedule_selection": "Choose budget_schedule only among already declared schedule settings using validation under budget_profile; do not choose on confirmation.",
+    "primary_every_selection_unchanged": true,
+    "oracle_bee_excluded": true,
+    "no_new_numeric_parameters": true,
+    "confirmation_allowed_profiles": "Quality-selected profile, validation-selected recommended budget_profile, baseline_v2 and two_stage only."
+  },
+  "reference_controls": {
+    "scope": "Official pinned implementations, every-frame same frozen detections, native active-output semantics; fixed before confirmation scoring. Not identical lifecycle to controlled ablations.",
+    "ocsort": {
+      "track_thresh": 0.35,
+      "min_hits": 1,
+      "max_age": 19,
+      "iou_threshold": 0.1,
+      "delta_t": 3,
+      "inertia": 0.2,
+      "ocsort_use_byte": false
+    },
+    "bytetrack": {
+      "track_thresh": 0.35,
+      "max_age": 23,
+      "match_thresh": 0.8
+    },
+    "fps": 25,
+    "note": "max_age OC19 approximates .75s at nominal25fps; Byte23 buffer scaled internally by25/30. No new training; first-frame exemplar belongs to source detections."
+  }
+}

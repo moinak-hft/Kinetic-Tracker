@@ -5,3 +5,9 @@
 *.jpg binary
 *.jpeg binary
 third_party/** -text
+# Preserve the byte hashes recorded by the completed confirmation freeze.
+configs/refinement_protocol.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+configs/recommended_profile.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+results/refinement/study_freeze.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+results/refinement/protocol.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+results/refinement/validation_selection.json -text whitespace=trailing-space,space-before-tab,cr-at-eol

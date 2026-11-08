@@ -202,7 +202,7 @@ def dataset_notice(metadata: dict) -> tuple[str, str, dict]:
     if metadata.get("synthetic"):
         return "SYNTHETIC DIAGNOSTIC / SIMULATED DETECTIONS", "Generated Kinetic-Tracker diagnostic imagery; no external dataset footage", {
             "kind": "synthetic", "source": "tools/generate_synthetic.py", "license": "Repository source and generated synthetic assets: MIT"}
-    if dataset == "gmot40":
+    if dataset in {"gmot40", "gmot40_confirmation"}:
         return "REAL FULL-SCENE IMAGES / FIXED DETECTION REPLAY", "GMOT-40 / Bai et al., CVPR 2021 / CC BY-NC-SA 4.0", {
             "kind": "real_author_dataset", "source": "https://spritea.github.io/GMOT40/download.html",
             "author_repository": "https://github.com/Spritea/GMOT40", "license": "CC BY-NC-SA 4.0",

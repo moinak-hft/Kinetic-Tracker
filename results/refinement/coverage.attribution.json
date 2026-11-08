@@ -1,0 +1,52 @@
+{
+  "license": "CC BY-NC-SA4.0",
+  "source": "https://spritea.github.io/GMOT40/download.html",
+  "attribution": "Hexin Bai, Wensheng Cheng, Peng Chu, Kai Zhang and Haibin Ling. GMOT-40, CVPR2021.",
+  "images": [
+    {
+      "sequence": "airplane-2",
+      "frames": 251,
+      "image_sha256": "c77150967067d1d61c0389b23862e9df9e22769447c46cfdf2fef291d6061cec"
+    },
+    {
+      "sequence": "ball-3",
+      "frames": 150,
+      "image_sha256": "3c1a6ff20a0e16488b55780cde7c2d82f71a644f60fd69a054be06527e15511b"
+    },
+    {
+      "sequence": "balloon-2",
+      "frames": 151,
+      "image_sha256": "64d5045145bdc407627c6d8c3c3d2edce6ee18290f8e6bed3d1653b611846321"
+    },
+    {
+      "sequence": "bird-2",
+      "frames": 357,
+      "image_sha256": "bae53906b8a35ba565ba6468563691fa654c854ee848007482f616cf868c0767"
+    },
+    {
+      "sequence": "boat-2",
+      "frames": 198,
+      "image_sha256": "4e34951bf83b1975ab54d7f851064bcd5be10c83430e1829b891169c0a8b0a7a"
+    },
+    {
+      "sequence": "car-2",
+      "frames": 199,
+      "image_sha256": "fee37412dfc02dac55deee9c7221c2c6189f95538568af00ae87fc4a67ee86c4"
+    },
+    {
+      "sequence": "fish-2",
+      "frames": 151,
+      "image_sha256": "07f974612bd9425ca3de61382348ce8420ec8b77400bd05a36cd113fdabb8a60"
+    },
+    {
+      "sequence": "person-0",
+      "frames": 184,
+      "image_sha256": "5464902fc3927d07bd6028c7b61a291b4b4bdea26a866595767927e681f2dd60"
+    },
+    {
+      "sequence": "stock-1",
+      "frames": 140,
+      "image_sha256": "695595b5ba84acef768f59135400b6f27450c5d92139680ab70f45970395a4b6"
+    }
+  ]
+}

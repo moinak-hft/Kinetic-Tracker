@@ -1,5 +1,65 @@
 # Kinetic-Tracker
 
+Native C++ multi-object tracking with reproducible quality/compute experiments.
+
+**Current refinement:** [measured report](results/refinement/REPORT.md),
+[offline interactive report](results/refinement/index.html),
+[build/run/reproduction commands](docs/REFINEMENT_REPRODUCE.md),
+[motion and scene design](docs/MOTION_DESIGN.md), and
+[system card](docs/SYSTEM_CARD.md), [failure analysis](docs/FAILURE_ANALYSIS.md),
+and [three LaTeX résumé bullets](docs/RESUME.tex).
+
+The current feature branch is `research/motion-aware-tracking`. It preserves
+the custom **Kuhn–Munkres/Hungarian matching** and adds uncertainty/direction
+costs, conservative post-gap recovery, robust scene-change diagnostics, active
+risk scope and frozen validation/confirmation tooling. No new detector training
+is required. The original implementations and v2 report remain available.
+
+Nine additional non-insect GMOT40 clips (1,781 original frames) broaden evaluation
+to aircraft, balls, balloons, birds, boats, cars, fish, people and livestock.
+They use author-provided frozen detections; they are **not** claims that the
+original pest detector was trained to detect all these categories. Official
+OC-SORT/ByteTrack references use the same caches. Thresholds and operating
+profiles were frozen before confirmation scoring.
+
+Validation retained two-stage association for every-frame quality and separately
+selected hybrid motion association for reduced detector availability. New
+features remain optional when the evidence does not support replacing the
+control. Failed candidates and per-clip regressions are retained in the report.
+
+| Additional confirmation · clip means | Detector calls /1,781 | HOTA | IDF1 |
+| --- | ---: | ---: | ---: |
+| Frozen v2, every frame | 1,781 | 37.05 | 44.54 |
+| Frozen v2, every2frames | 893 | 35.82 | 43.60 |
+| Hybrid motion, every2frames | 893 | 36.55 | 43.88 |
+| Hybrid motion, validation-selected adaptive | 860 | 36.53 | 44.01 |
+| Same hybrid motion, exact-count uniform control | 860 | 36.66 | 44.19 |
+
+The fixed2 association comparison improves mean HOTA by **0.74 points**, with
+six clips improving and three regressing. The adaptive scheduler trails its
+matched uniform control by 0.14 points on this cohort; this is preserved as a
+negative result. Every-frame quality remains byte-identical to the prior control.
+These are author-cache tracking results, not newly trained detector accuracy or
+whole-benchmark leaderboard scores. Separately, three counterbalanced CPU runs
+on the original unlabelled 240-frame video averaged **10.35→20.51 wall FPS**
+(**1.98×**, 240→112 detector calls); this is runtime evidence on that video only. All nine comparison videos are in the report.
+
+```powershell
+Set-Location 'D:\Kinetic-Tracker-main'
+.\.venv\Scripts\python.exe tools\build.py --jobs 2
+.\.venv\Scripts\python.exe tools\run_profile.py --frames 240
+.\.venv\Scripts\python.exe tools\run_profile.py --budget --frames 240
+Start-Process '.\results\refinement\index.html'
+```
+
+Open this D: checkout in VS Code; the folder suffix `-main` does not select a
+Git branch. See [branch upload instructions](docs/GIT_WORKFLOW.md).
+
+## Earlier v2 study (historical results)
+
+The following section describes the previously merged v2 study. Its numerical
+results and output policy are separate from the current refinement report.
+
 **Native C++ tracking, budgeted detection and reproducible multi-object tracking evaluation.**
 
 This branch extends the original YOLO/OpenCV/SORT demo into an inspectable
@@ -141,8 +201,8 @@ evaluation pipeline.
 
 ## Branch workflow
 
-Development belongs on `research/compute-aware-tracking`; `main` remains the
-original project. See [VS Code/Git instructions](docs/GIT_WORKFLOW.md) to publish
+Current development belongs on `research/motion-aware-tracking`; `main` retains
+the previously merged v2 project. See [VS Code/Git instructions](docs/GIT_WORKFLOW.md) to publish
 the branch and optionally open a draft PR without merging it. Share the feature
 branch URL with reviewers once pushed.
 

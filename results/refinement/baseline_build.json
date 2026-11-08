@@ -1,0 +1,6 @@
+{
+  "source_commit": "e2d2343fd3814d1f4fe114172373d801ed7ca7f8",
+  "git_source_archive_sha256": "43f7534b57798df6d9491e1245350aac512e5f85361fa5bbd3a87cca1139dca1",
+  "executable_sha256": "0d5881f78a28d83ccb64bdf205b2074dc0d5fcc0e866dfc0c1e18986cc1cb690",
+  "note": "Pinned merged v2 source; same compiler/OpenCV backend. PE build timestamps may change binary hashes without changing numeric tracking outputs."
+}

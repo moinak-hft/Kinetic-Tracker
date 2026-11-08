@@ -1,0 +1,20 @@
+Test project D:/Kinetic-Tracker-main/build
+    Start 1: tracker_semantics
+1/6 Test #1: tracker_semantics ................   Passed    0.12 sec
+    Start 2: scheduler_semantics
+2/6 Test #2: scheduler_semantics ..............   Passed    0.03 sec
+    Start 3: detector_semantics
+3/6 Test #3: detector_semantics ...............   Passed    0.12 sec
+    Start 4: motion_semantics
+4/6 Test #4: motion_semantics .................   Passed    0.12 sec
+    Start 5: scene_semantics
+5/6 Test #5: scene_semantics ..................   Passed    0.24 sec
+    Start 6: python_tests
+6/6 Test #6: python_tests .....................   Passed   15.63 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =  16.27 sec
+
+Python integration:81tests,80passed,1Windows symlink privilege skip.
+Report comparison tests:4passed after final report formatting.
