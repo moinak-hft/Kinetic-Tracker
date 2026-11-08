@@ -4,8 +4,8 @@
     {
       "label": "Kinetic: build and test",
       "type": "process",
-      "command": "powershell",
-      "args": ["-NoProfile", "-File", "${workspaceFolder}\\scripts\\build.ps1"],
+      "command": "python",
+      "args": ["${workspaceFolder}\\tools\\build.py"],
       "options": {"cwd": "${workspaceFolder}"},
       "group": {"kind": "build", "isDefault": true},
       "problemMatcher": ["$gcc"]
@@ -14,7 +14,7 @@
       "label": "Kinetic: regenerate report",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["tools/report.py"],
+      "args": ["tools/refinement_report.py"],
       "options": {"cwd": "${workspaceFolder}"},
       "problemMatcher": []
     }

@@ -1,0 +1,32 @@
+phase,source_group,profile,schedule,sequences,frames,calls,detector_rate,HOTA,IDF1
+confirmation,Additional non-insect clips,motion_hybrid_full,adaptive50_legacy_active,9,1781,845,0.4744525547445255,0.36561984773205175,0.4401040413408659
+confirmation,Additional non-insect clips,motion_hybrid_full,adaptive50_legacy_all,9,1781,860,0.48287478944413254,0.3652684902390992,0.4401344557157702
+confirmation,Additional non-insect clips,motion_hybrid_full,adaptive50_robust_active,9,1781,852,0.4783829309376755,0.3658982962004933,0.44082973766308003
+confirmation,Additional non-insect clips,motion_hybrid_full,adaptive50_robust_all,9,1781,870,0.4884896125772038,0.3659774614904594,0.4413505323630274
+confirmation,Additional non-insect clips,motion_hybrid_full,every,9,1781,1781,1.0,0.3703206254248184,0.4465735044137555
+confirmation,Additional non-insect clips,motion_hybrid_full,fixed2,9,1781,893,0.5014037057832679,0.36552556063799446,0.4387849800019954
+confirmation,Additional non-insect clips,motion_hybrid_full,fixed4,9,1781,448,0.2515440763615946,0.33800790396182834,0.4085660719056236
+confirmation,Additional non-insect clips,motion_hybrid_full,matched__adaptive50_legacy_active,9,1781,845,0.4744525547445255,0.3669113247655942,0.44146771680813124
+confirmation,Additional non-insect clips,motion_hybrid_full,matched__adaptive50_legacy_all,9,1781,860,0.48287478944413254,0.36663065564309333,0.44186248372414816
+confirmation,Additional non-insect clips,motion_hybrid_full,matched__adaptive50_robust_active,9,1781,852,0.4783829309376755,0.3668449217574945,0.4418057987469758
+confirmation,Additional non-insect clips,motion_hybrid_full,matched__adaptive50_robust_all,9,1781,870,0.4884896125772038,0.3653272117721992,0.4377684767860876
+exploratory,Natural insect clips,motion_hybrid_full,adaptive50_legacy_active,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,adaptive50_legacy_all,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,adaptive50_robust_active,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,adaptive50_robust_all,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,every,2,348,348,1.0,0.292433504445322,0.43103532702231323
+exploratory,Natural insect clips,motion_hybrid_full,fixed2,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,matched__adaptive50_legacy_active,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,matched__adaptive50_legacy_all,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,matched__adaptive50_robust_active,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Natural insect clips,motion_hybrid_full,matched__adaptive50_robust_all,2,348,175,0.5028735632183908,0.26274604989517614,0.36724815309915826
+exploratory,Synthetic diagnostics,motion_hybrid_full,adaptive50_legacy_active,6,1080,319,0.2953703703703704,0.7181754438761287,0.8210988433310612
+exploratory,Synthetic diagnostics,motion_hybrid_full,adaptive50_legacy_all,6,1080,365,0.33796296296296297,0.7201379772376195,0.8172356684252874
+exploratory,Synthetic diagnostics,motion_hybrid_full,adaptive50_robust_active,6,1080,519,0.48055555555555557,0.7523512659187618,0.864046704068604
+exploratory,Synthetic diagnostics,motion_hybrid_full,adaptive50_robust_all,6,1080,535,0.49537037037037035,0.7537819501524505,0.8649243286144171
+exploratory,Synthetic diagnostics,motion_hybrid_full,every,6,1080,1080,1.0,0.7919599412113865,0.8519290805312782
+exploratory,Synthetic diagnostics,motion_hybrid_full,fixed2,6,1080,540,0.5,0.7549156742805612,0.8651108909105685
+exploratory,Synthetic diagnostics,motion_hybrid_full,matched__adaptive50_legacy_active,6,1080,319,0.2953703703703704,0.6804621739672099,0.7866221783942978
+exploratory,Synthetic diagnostics,motion_hybrid_full,matched__adaptive50_legacy_all,6,1080,365,0.33796296296296297,0.7035937405228155,0.8103977794736448
+exploratory,Synthetic diagnostics,motion_hybrid_full,matched__adaptive50_robust_active,6,1080,519,0.48055555555555557,0.7448035160618843,0.858855511089673
+exploratory,Synthetic diagnostics,motion_hybrid_full,matched__adaptive50_robust_all,6,1080,535,0.49537037037037035,0.7469022547907888,0.8609287098230594

@@ -18,6 +18,14 @@ sys.path.insert(0, str(ROOT / "tools"))
 from make_demo import Run, Track, dataset_notice, id_colour, load_run, make_demo, render_panel
 
 
+class ConfirmationAttributionTests(unittest.TestCase):
+    def test_confirmation_subset_keeps_original_gmot_licence(self):
+        notice, credit, attribution = dataset_notice({'dataset': 'gmot40_confirmation'})
+        self.assertIn('GMOT-40', credit)
+        self.assertEqual(attribution['derivative_video_license'], 'CC BY-NC-SA 4.0')
+        self.assertIn('FIXED DETECTION REPLAY', notice)
+
+
 def write_csv(path, header, rows):
     with path.open("w", newline="", encoding="utf-8") as stream:
         writer = csv.writer(stream); writer.writerow(header); writer.writerows(rows)

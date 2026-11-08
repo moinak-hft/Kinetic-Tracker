@@ -1,5 +1,6 @@
 #include "kinetic/detector.hpp"
 #include "kinetic/scheduler.hpp"
+#include "kinetic/scene.hpp"
 #include "kinetic/tracker.hpp"
 #include <algorithm>
 #include <cctype>
@@ -69,13 +70,17 @@ static void guard_outputs(const std::vector<fs::path> &inputs, const fs::path &d
 struct Options {
     std::string video, images, model, detections, frame_times,
         output = "runs/demo", schedule = "every", association = "sort", output_video,
-        output_policy = "active";
+        output_policy = "active", scene_method = "legacy", risk_scope = "all";
     int frames = 0, interval = 4, max_gap = 8, min_gap = 1, min_hits = 2, input_size = 640,
-        threads = 2, seed = 42, uniform_calls = 0;
+        threads = 2, seed = 42, uniform_calls = 0, scene_width = 640, scene_min_area = 2;
     double fps = 25, risk_threshold = .18, novelty_threshold = .00008, max_age = .75,
-           prediction_age = .4, target_rate = 1;
+           prediction_age = .4, target_rate = 1, motion_gate = 13.2767,
+           motion_mahalanobis_weight = .25, motion_direction_weight = .1,
+           motion_max_center_distance = 3, motion_cost_limit = 1, motion_ambiguity_margin = .03,
+           scene_alpha = .08, scene_pixel_threshold = 18, recovery_gate = 9.2103;
     float high = .35f, low = .08f, iou = .2f, score = .05f, nms = .45f;
-    bool preview = false;
+    bool preview = false, motion_recovery = true, scene_translation = true,
+         motion_overlap_fallback = false;
 };
 static Options options(int argc, char **argv) {
     Options o;
@@ -83,13 +88,13 @@ static Options options(int argc, char **argv) {
         std::string a = argv[i];
         if (a == "--help") {
             std::cout
-                << "Kinetic-Tracker 2: native C++ data-cache and live-video tracking\n"
+                << "Kinetic-Tracker 2.1: native C++ tracking and training-free refinements\n"
                    "Inputs: --video file OR --images dir; --model yolo-v8.onnx for inference\n"
                    "Replay: --detections detections.csv --frames N --fps 25 [--images dir]\n"
                    "        [--frame-times frames.csv] preserves source sampling intervals\n"
                    "Output: --output directory [--output-video annotated.mp4] [--preview]\n"
                    "        --output-policy active|all (default active suppresses unmatched lost-track boxes)\n"
-                   "Policy: --association sort|two_stage --schedule "
+                   "Policy: --association sort|two_stage|motion|recovery --schedule "
                    "every|fixed|random|age|covariance|risk|adaptive|uniform\n"
                    "        --interval 4 --max-gap 8 --min-gap 1 --risk-threshold .18 "
                    "--novelty-threshold .00008\n"
@@ -97,6 +102,12 @@ static Options options(int argc, char **argv) {
                    "selects K equally spaced frames\n"
                    "Tracker: --high .35 --low .08 --iou .2 --min-hits 2 --max-age .75 "
                    "--prediction-age .4\n"
+                   "Motion: --motion-gate 13.2767 --motion-mahalanobis-weight .25 --motion-direction-weight .1\n"
+                   "        --motion-recovery 1 --motion-max-center-distance 3 --motion-cost-limit 1 --motion-ambiguity-margin .03\n"
+                   "        --motion-overlap-fallback 0|1 preserves reliable IoU pairs under heuristic uncertainty\n"
+                   "Recovery: --association recovery --recovery-gate 9.2103 preserves both IoU passes before guarded reactivation\n"
+                   "Scene: --scene-method legacy|robust --risk-scope all|active --scene-width 640\n"
+                   "       --scene-alpha .08 --scene-pixel-threshold 18 --scene-min-area 2 --scene-translation 1\n"
                    "Detector: --input-size 640 --score .05 --nms .45 --threads 2 --seed 42\n"
                    "Cached replay timings do not measure detector inference. No GPU is required.\n";
             std::exit(0);
@@ -128,6 +139,38 @@ static Options options(int argc, char **argv) {
             o.association = v;
         else if (a == "--output-policy")
             o.output_policy = v;
+        else if (a == "--scene-method")
+            o.scene_method = v;
+        else if (a == "--risk-scope")
+            o.risk_scope = v;
+        else if (a == "--motion-gate")
+            o.motion_gate = std::stod(v);
+        else if (a == "--recovery-gate")
+            o.recovery_gate = std::stod(v);
+        else if (a == "--motion-mahalanobis-weight")
+            o.motion_mahalanobis_weight = std::stod(v);
+        else if (a == "--motion-direction-weight")
+            o.motion_direction_weight = std::stod(v);
+        else if (a == "--motion-max-center-distance")
+            o.motion_max_center_distance = std::stod(v);
+        else if (a == "--motion-cost-limit")
+            o.motion_cost_limit = std::stod(v);
+        else if (a == "--motion-ambiguity-margin")
+            o.motion_ambiguity_margin = std::stod(v);
+        else if (a == "--motion-recovery" || a == "--scene-translation" || a == "--motion-overlap-fallback") {
+            if (v != "0" && v != "1") throw std::runtime_error(a + " expects 0 or 1");
+            if (a == "--motion-recovery") o.motion_recovery = v == "1";
+            else if (a == "--motion-overlap-fallback") o.motion_overlap_fallback = v == "1";
+            else o.scene_translation = v == "1";
+        }
+        else if (a == "--scene-width")
+            o.scene_width = std::stoi(v);
+        else if (a == "--scene-min-area")
+            o.scene_min_area = std::stoi(v);
+        else if (a == "--scene-alpha")
+            o.scene_alpha = std::stod(v);
+        else if (a == "--scene-pixel-threshold")
+            o.scene_pixel_threshold = std::stod(v);
         else if (a == "--frames")
             o.frames = std::stoi(v);
         else if (a == "--fps")
@@ -175,8 +218,19 @@ static Options options(int argc, char **argv) {
                                             "covariance", "risk",  "adaptive", "uniform"};
     if (!policies.count(o.schedule))
         throw std::runtime_error("invalid schedule");
-    if (o.association != "sort" && o.association != "two_stage")
+    if (o.association != "sort" && o.association != "two_stage" && o.association != "motion" && o.association != "recovery")
         throw std::runtime_error("invalid association");
+    if (o.scene_method != "legacy" && o.scene_method != "robust")
+        throw std::runtime_error("invalid scene method");
+    if (o.risk_scope != "all" && o.risk_scope != "active")
+        throw std::runtime_error("invalid risk scope");
+    for (double value : {o.motion_gate, o.motion_mahalanobis_weight, o.motion_direction_weight,
+                         o.motion_max_center_distance, o.motion_cost_limit, o.motion_ambiguity_margin, o.recovery_gate})
+        if (!std::isfinite(value)) throw std::runtime_error("motion parameters must be finite");
+    if (o.recovery_gate <= 0 || o.motion_gate <= 0 || o.motion_mahalanobis_weight < 0 || o.motion_mahalanobis_weight > 1 ||
+        o.motion_direction_weight < 0 || o.motion_direction_weight > 1 || o.motion_max_center_distance <= 0 ||
+        o.motion_cost_limit <= 0 || o.motion_cost_limit > 2 || o.motion_ambiguity_margin < 0 || o.motion_ambiguity_margin > 1)
+        throw std::runtime_error("invalid motion parameters");
     if (o.output_policy != "all" && o.output_policy != "active")
         throw std::runtime_error("invalid output policy");
     if (o.frames < 0 || !std::isfinite(o.fps) || o.fps <= 0 || o.interval < 1 || o.min_gap < 1 ||
@@ -400,7 +454,23 @@ int main(int argc, char **argv) {
         config.min_hits = o.min_hits;
         config.max_age_seconds = o.max_age;
         config.prediction_output_seconds = o.prediction_age;
+        config.motion_gate = o.motion_gate;
+        config.motion_mahalanobis_weight = o.motion_mahalanobis_weight;
+        config.motion_direction_weight = o.motion_direction_weight;
+        config.motion_recovery = o.motion_recovery;
+        config.motion_max_center_distance = o.motion_max_center_distance;
+        config.motion_cost_limit = o.motion_cost_limit;
+        config.motion_ambiguity_margin = o.motion_ambiguity_margin;
+        config.motion_overlap_fallback = o.motion_overlap_fallback;
+        config.recovery_gate = o.recovery_gate;
         kinetic::Tracker tracker(config);
+        kinetic::SceneConfig scene_config;
+        scene_config.analysis_width = o.scene_width;
+        scene_config.pixel_threshold = static_cast<float>(o.scene_pixel_threshold);
+        scene_config.adaptation_rate = o.scene_alpha;
+        scene_config.min_component_area = o.scene_min_area;
+        scene_config.compensate_translation = o.scene_translation;
+        kinetic::SceneChangeDetector scene_detector(scene_config);
         kinetic::SchedulingConfig schedule_config;
         schedule_config.mode = o.schedule;
         schedule_config.interval = o.interval;
@@ -423,7 +493,7 @@ int main(int argc, char **argv) {
         telemetry << "frame,timestamp,id,x,y,w,h,score,class_id,state,observed\n";
         frame_log << "frame,timestamp,detector_ran,detections,tracks,uncertainty,ambiguity,novelty,"
                      "decode_ms,preprocess_ms,inference_ms,postprocess_ms,tracking_ms,schedule_ms,"
-                     "output_ms,total_ms\n";
+                     "output_ms,total_ms,scene_raw_novelty,scene_global_change,scene_reset,scene_warming\n";
         detlog << "frame,timestamp,x,y,w,h,score,class_id\n";
         for (auto *stream : {&mot, &telemetry, &frame_log, &detlog})
             *stream << std::fixed << std::setprecision(8);
@@ -457,11 +527,19 @@ int main(int argc, char **argv) {
             t = Clock::now();
             tracker.predict(timestamp);
             double tracking_ms = elapsed(t);
-            double uncertainty = tracker.normalized_uncertainty(), ambiguity = tracker.ambiguity(),
-                   novelty = 0;
             t = Clock::now();
-            if (o.schedule == "adaptive")
-                novelty = scene_novelty(frame, previous, tracker.tracks());
+            double uncertainty = tracker.normalized_uncertainty(o.risk_scope == "active"),
+                   ambiguity = tracker.ambiguity(o.risk_scope == "active"), novelty = 0;
+            kinetic::SceneResult scene_result;
+            if (o.schedule == "adaptive") {
+                if (o.scene_method == "robust") {
+                    scene_result = scene_detector.observe(frame, tracker.tracks());
+                    novelty = scene_result.novelty;
+                } else {
+                    novelty = scene_novelty(frame, previous, tracker.tracks());
+                    scene_result.raw_novelty = novelty;
+                }
+            }
             bool run = scheduler.decide(n, uncertainty, ambiguity, novelty);
             double schedule_ms = elapsed(t), prep = 0, infer = 0, post = 0;
             std::vector<kinetic::Detection> dets;
@@ -537,7 +615,8 @@ int main(int argc, char **argv) {
                       << ',' << uncertainty << ',' << ambiguity << ',' << novelty << ','
                       << decode_ms << ',' << prep << ',' << infer << ',' << post << ','
                       << tracking_ms << ',' << schedule_ms << ',' << output_ms << ',' << total
-                      << '\n';
+                      << ',' << scene_result.raw_novelty << ',' << scene_result.global_change
+                      << ',' << scene_result.reset << ',' << scene_result.warming_up << '\n';
         }
         mot.flush();
         telemetry.flush();
@@ -548,10 +627,20 @@ int main(int argc, char **argv) {
             cv::destroyAllWindows();
         double wall_s = elapsed(wall) / 1000;
         std::ofstream summary(fs::path(o.output) / "summary.json");
-        summary << std::setprecision(12) << "{\n  \"version\": \"2.0.0\",\n  \"mode\": \""
+        summary << std::setprecision(12) << "{\n  \"version\": \"2.1.0\",\n  \"mode\": \""
                 << (o.detections.empty() ? "uncached_inference" : "cached_detection_replay")
                 << "\",\n"
                 << "  \"output_policy\": \"" << o.output_policy << "\",\n"
+                << "  \"scene_method\": \"" << o.scene_method << "\", \"risk_scope\": \"" << o.risk_scope << "\",\n"
+                << "  \"motion_gate\": " << o.motion_gate << ", \"motion_mahalanobis_weight\": " << o.motion_mahalanobis_weight
+                << ", \"motion_direction_weight\": " << o.motion_direction_weight << ", \"motion_recovery\": " << (o.motion_recovery ? "true" : "false") << ",\n"
+                << "  \"motion_overlap_fallback\": " << (o.motion_overlap_fallback ? "true" : "false") << ",\n"
+                << "  \"recovery_gate\": " << o.recovery_gate << ",\n"
+                << "  \"motion_max_center_distance\": " << o.motion_max_center_distance << ", \"motion_cost_limit\": " << o.motion_cost_limit
+                << ", \"motion_ambiguity_margin\": " << o.motion_ambiguity_margin << ",\n"
+                << "  \"scene_width\": " << o.scene_width << ", \"scene_alpha\": " << o.scene_alpha
+                << ", \"scene_pixel_threshold\": " << o.scene_pixel_threshold << ", \"scene_min_area\": " << o.scene_min_area
+                << ", \"scene_translation\": " << (o.scene_translation ? "true" : "false") << ",\n"
                 << "  \"schedule\": \"" << o.schedule << "\", \"association\": \"" << o.association
                 << "\",\n"
                 << "  \"frames\": " << count << ", \"detector_calls\": " << calls

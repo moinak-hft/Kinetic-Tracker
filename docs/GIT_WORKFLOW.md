@@ -1,27 +1,43 @@
-# Publish the feature branch without merging main
+# Current development branch and publishing
 
-Development is in a separate Git checkout:
-`E:\Kinetic-Tracker-dev`, branch `research/compute-aware-tracking`.
-The downloaded `E:\Kinetic-Tracker-main` folder remains untouched.
-
-Open the development checkout in VS Code. The lower-left branch indicator
-should show `research/compute-aware-tracking`. Ctrl+Shift+B builds and tests.
+Open **D:\Kinetic-Tracker-main** in VS Code. This is the current upgraded
+checkout; the folder name `-main` does not indicate the active Git branch.
+Development is on `research/motion-aware-tracking`. The local `main` reference
+remains at merged v2 commit `e2d2343`. Old E: folders are separate copies.
 
 ```powershell
-Set-Location E:\Kinetic-Tracker-dev
+Set-Location 'D:\Kinetic-Tracker-main'
 git branch --show-current
 git status
 git log -1 --oneline
-git push -u origin research/compute-aware-tracking
 ```
 
-Pushing that branch publishes it without changing `main`. On GitHub, select the
-feature branch and copy that URL for reviewers. An optional draft pull request
-uses base `main`, compare `research/compute-aware-tracking`; leave it unmerged.
-Continue development on the feature branch with ordinary commits and `git push`.
+To publish the locally committed refinement as a separate branch:
 
-Raw datasets, `.venv`, generated caches, `runs/` and compiler outputs are ignored.
-Review `git diff --cached --stat` before future commits. Result videos and compact
-tables are intentional tracked artifacts; preserve their attribution files.
-Creating a new VS Code folder or downloading a ZIP does not create/push a Git
-branch. Until the push command succeeds, the feature branch exists only locally.
+```powershell
+git push -u origin research/motion-aware-tracking
+```
+
+This publishes the feature branch without merging it into `main`. Review it on
+GitHub using that branch or open a pull request with base `main` and compare
+`research/motion-aware-tracking`. Merge only when you decide to. There is no
+need to clone again or create a folder named branch2.
+
+For later edits:
+
+```powershell
+git status
+git diff --stat
+git add README.md docs configs include src tests tools CMakeLists.txt .vscode .github results/refinement
+git diff --cached --stat
+git commit -m "Describe the actual follow-up change"
+git push
+```
+
+Authentication uses Git Credential Manager's browser login or an appropriate
+GitHub token; a GitHub account password cannot authenticate HTTPS Git pushes.
+Do not paste tokens into project files, URLs, screenshots or this chat.
+
+Raw data, `.venv`, `runs/`, `work/` and compiler outputs are ignored. Compact
+report artifacts and attributed demonstration videos are intentional tracked
+outputs. No credentials are required to view the offline report.

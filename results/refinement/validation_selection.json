@@ -1,0 +1,490 @@
+{
+  "selected_profile": "two_stage",
+  "selection": {
+    "metric": "source-balanced HOTA: .5*mean(synthetic6)+.5*raw insect-1",
+    "tie_break": "source-balanced IDF1, then prefer unchanged two_stage on an exact tie",
+    "reference_profile": "two_stage",
+    "raw_guard_group": "raw_insect",
+    "max_raw_hota_drop": 0.005,
+    "schedule": "every",
+    "output_policy": "active",
+    "test_tuning": false
+  },
+  "outcomes": {
+    "two_stage": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7853665041446388,
+          "IDF1": 0.8432828175431298,
+          "AssA": 0.752402173312758,
+          "DetA": 0.8350763904736671,
+          "MOTA": 0.8851660401002506
+        },
+        "raw_insect": {
+          "HOTA": 0.25221946882258756,
+          "IDF1": 0.33300989714729284,
+          "AssA": 0.206454029000275,
+          "DetA": 0.3122317649177912,
+          "MOTA": 0.11539861667273389
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.5187929864836132,
+        "IDF1": 0.5881463573452114,
+        "AssA": 0.4794281011565165,
+        "DetA": 0.5736540776957292,
+        "MOTA": 0.5002823283864922
+      }
+    },
+    "motion_uncertainty": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7728464761164101,
+          "IDF1": 0.8127801333069172,
+          "AssA": 0.7340584078585732,
+          "DetA": 0.8561979254356541,
+          "MOTA": 0.9212771512113617
+        },
+        "raw_insect": {
+          "HOTA": 0.11563400789567473,
+          "IDF1": 0.08204930662557781,
+          "AssA": 0.04512333107606712,
+          "DetA": 0.3194267554752161,
+          "MOTA": 0.02693847834000728
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.4442402420060424,
+        "IDF1": 0.44741471996624754,
+        "AssA": 0.3895908694673202,
+        "DetA": 0.5878123404554351,
+        "MOTA": 0.4741078147756845
+      }
+    },
+    "motion_direction": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7728464761164101,
+          "IDF1": 0.8127801333069172,
+          "AssA": 0.7340584078585732,
+          "DetA": 0.8561979254356541,
+          "MOTA": 0.9212771512113617
+        },
+        "raw_insect": {
+          "HOTA": 0.11657500551333955,
+          "IDF1": 0.0858085808580858,
+          "AssA": 0.04592369190860877,
+          "DetA": 0.3155655973662207,
+          "MOTA": 0.023662176920276664
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.4447107408148748,
+        "IDF1": 0.44929435708250154,
+        "AssA": 0.389991049883591,
+        "DetA": 0.5858817614009374,
+        "MOTA": 0.47246966406581914
+      }
+    },
+    "motion_full": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7693122306172796,
+          "IDF1": 0.8186924659089015,
+          "AssA": 0.729888791662936,
+          "DetA": 0.8507489126783775,
+          "MOTA": 0.9210456697298802
+        },
+        "raw_insect": {
+          "HOTA": 0.1198686846150412,
+          "IDF1": 0.09193580344759263,
+          "AssA": 0.04617659129568391,
+          "DetA": 0.3345668539130067,
+          "MOTA": 0.07571896614488532
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.4445904576161604,
+        "IDF1": 0.4553141346782471,
+        "AssA": 0.38803269147930997,
+        "DetA": 0.5926578832956921,
+        "MOTA": 0.49838231793738275
+      }
+    },
+    "motion_full_gate25": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7729069011702223,
+          "IDF1": 0.8318889468473181,
+          "AssA": 0.7336707901683507,
+          "DetA": 0.8482905717281256,
+          "MOTA": 0.9210456697298802
+        },
+        "raw_insect": {
+          "HOTA": 0.13193024123504615,
+          "IDF1": 0.11217092712705075,
+          "AssA": 0.057111575375570725,
+          "DetA": 0.3225862348037061,
+          "MOTA": 0.06880232981434292
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.45241857120263423,
+        "IDF1": 0.47202993698718443,
+        "AssA": 0.3953911827719607,
+        "DetA": 0.5854384032659159,
+        "MOTA": 0.49492399977211154
+      }
+    },
+    "motion_hybrid_iou": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7853665041446388,
+          "IDF1": 0.8432828175431298,
+          "AssA": 0.752402173312758,
+          "DetA": 0.8350763904736671,
+          "MOTA": 0.8851660401002506
+        },
+        "raw_insect": {
+          "HOTA": 0.24339917668038638,
+          "IDF1": 0.30970637740789225,
+          "AssA": 0.20370340144883178,
+          "DetA": 0.2948232745657568,
+          "MOTA": 0.03458318165271205
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.5143828404125126,
+        "IDF1": 0.576494597475511,
+        "AssA": 0.47805278738079493,
+        "DetA": 0.564949832519712,
+        "MOTA": 0.4598746108764813
+      }
+    },
+    "motion_hybrid_full": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7899431887669358,
+          "IDF1": 0.8552398697637255,
+          "AssA": 0.7566810991896197,
+          "DetA": 0.8369129316981988,
+          "MOTA": 0.909471595655806
+        },
+        "raw_insect": {
+          "HOTA": 0.2439357202363827,
+          "IDF1": 0.31149382253837515,
+          "AssA": 0.19917359948573793,
+          "DetA": 0.3025517269509635,
+          "MOTA": 0.07571896614488532
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.5169394545016592,
+        "IDF1": 0.5833668461510503,
+        "AssA": 0.4779273493376788,
+        "DetA": 0.5697323293245812,
+        "MOTA": 0.49259528090034566
+      }
+    },
+    "motion_hybrid_no_recovery": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7853665041446388,
+          "IDF1": 0.8432828175431298,
+          "AssA": 0.752402173312758,
+          "DetA": 0.8350763904736671,
+          "MOTA": 0.8851660401002506
+        },
+        "raw_insect": {
+          "HOTA": 0.23942118665422588,
+          "IDF1": 0.30377852600074823,
+          "AssA": 0.19487700943780686,
+          "DetA": 0.2985120803788482,
+          "MOTA": 0.0444120859119039
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.5123938453994323,
+        "IDF1": 0.5735306717719391,
+        "AssA": 0.47363959137528244,
+        "DetA": 0.5667942354262576,
+        "MOTA": 0.46478906300607725
+      }
+    },
+    "recovery": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7853665041446388,
+          "IDF1": 0.8432828175431298,
+          "AssA": 0.752402173312758,
+          "DetA": 0.8350763904736671,
+          "MOTA": 0.8851660401002506
+        },
+        "raw_insect": {
+          "HOTA": 0.25221946882258756,
+          "IDF1": 0.33300989714729284,
+          "AssA": 0.206454029000275,
+          "DetA": 0.3122317649177912,
+          "MOTA": 0.11539861667273389
+        }
+      },
+      "source_balanced": {
+        "HOTA": 0.5187929864836132,
+        "IDF1": 0.5881463573452114,
+        "AssA": 0.4794281011565165,
+        "DetA": 0.5736540776957292,
+        "MOTA": 0.5002823283864922
+      }
+    }
+  },
+  "raw_hota_minimum": 0.24721946882258755,
+  "raw_guard_accepted_profiles": [
+    "two_stage",
+    "recovery"
+  ],
+  "baseline_v2_regression_checks": [
+    {
+      "case": "gmot40__insect-1",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    },
+    {
+      "case": "synthetic__validation__abrupt_turns",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    },
+    {
+      "case": "synthetic__validation__background_motion",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    },
+    {
+      "case": "synthetic__validation__births",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    },
+    {
+      "case": "synthetic__validation__crossings",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    },
+    {
+      "case": "synthetic__validation__easy",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    },
+    {
+      "case": "synthetic__validation__occlusion",
+      "mot_bytes_identical": true,
+      "deltas_new_minus_baseline": {
+        "HOTA": 0.0,
+        "IDF1": 0.0,
+        "AssA": 0.0,
+        "DetA": 0.0,
+        "MOTA": 0.0,
+        "IDSW": 0,
+        "FP": 0,
+        "FN": 0,
+        "TP": 0,
+        "Frag": 0
+      }
+    }
+  ],
+  "frozen": false,
+  "protocol_sha256": "16565cd15c25586e6a61132def4597d6c479a9fd536847415a0322fdc5931fca",
+  "runner_sha256": "c1c7d383bc65d64914f4843ab075612ebc5090fa8677b221bf59b70b0e417198",
+  "evaluator_sha256": "05e8b48f3e1ba8b7e47d7766dc8f884e352be3b97e84f60ac0d2bcae38c9357b",
+  "validation_inputs": {
+    "synthetic__validation__easy": {
+      "metadata_sha256": "4ac1a68fc9934906a388879b82f93ecfe855fd88a6a5e47258f31530347450b5",
+      "detections_sha256": "034a5632b58b75e67ef1a2daaa4515dcfa02ce7023f8ac2d485f879b1dd6f88d",
+      "gt_sha256": "0612911e59c2c42d4b82d721f09b25c78808e4a4628572262cedbcfbe0b66dfd",
+      "frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+      "image_content_sha256": "e4fb740db80706ae332934eb43b032e92d0f2917eff14848c0c62469ad8aefd5"
+    },
+    "synthetic__validation__crossings": {
+      "metadata_sha256": "b392364c09d2ec6ee9ecca0dd4e484e3ad20f78b6d96bbf29af22398e11a9e5b",
+      "detections_sha256": "07ebbcb3890a8147862850d727de36a4a57b85c2d08025a154e03f66f7e38d8a",
+      "gt_sha256": "e7c51e87c876a9f6c546733750fd3f924861850f597a154cd16af535933e4778",
+      "frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+      "image_content_sha256": "ab9a51ec6cdacd8717194245818648371e6832e7b36097bc646cb8c2a1d441a0"
+    },
+    "synthetic__validation__abrupt_turns": {
+      "metadata_sha256": "a02fe20d21b2efcfba6255dfe3687f12e2b1a769143440c2db2ce4b405680b02",
+      "detections_sha256": "c3922349442c0d286db73c961c218ab34e66455d68821204cec60cc81e0842bf",
+      "gt_sha256": "9bd3d88d3db54964038e5fc2e3ea19b1fa34d2f0e8df405edfe5093d3ec4c806",
+      "frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+      "image_content_sha256": "794bc4ef9c7138a90a7288caed7284ab05ece443a0cc3c3233307529cbe8f524"
+    },
+    "synthetic__validation__occlusion": {
+      "metadata_sha256": "427d0dfbbb27add58e0660f2772d22851d59e56b599910b3d1d4184671608a36",
+      "detections_sha256": "fb2091cacb872b424fd24898709e1ab33be798cbee44648ca8c42a0daf590d76",
+      "gt_sha256": "108d0449c63a6599ed3c7be243a74085d9dc23d6263861f536cc5fa52950e746",
+      "frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+      "image_content_sha256": "bdfe7adccbf2af6a59161c61592f621113967d3fefad245924d743cb6dbf29e7"
+    },
+    "synthetic__validation__births": {
+      "metadata_sha256": "acf8c04de6857928a3d5b80f67903b8d6bba0f52f3481c849a64d389b4c1e5f3",
+      "detections_sha256": "7ad3ee411a6c025d01e9fc11c0bcf68c709515120ec93beea57104db0e773458",
+      "gt_sha256": "d4fd160db5527a08e3a71936c563781bb8ba8cf950a8a097d4ad0837bf42d114",
+      "frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+      "image_content_sha256": "99971337c189bc04fe48d244a6d1c8a0b1e1261651538c394ce8cd7d78f2ebe5"
+    },
+    "synthetic__validation__background_motion": {
+      "metadata_sha256": "0af01a4d4f6499a216dd4b6ead4327867a309c224bf3aa845266bbd4fa3d651f",
+      "detections_sha256": "57f869edd23dc0a4d1eb64c9b1693b3cd68494e73fa17cf08316093de9e3e1be",
+      "gt_sha256": "bacf67c282637dcb2633a63f8bcd9d822d30dc1e8e13ea1c488fc42dc8e45dfb",
+      "frame_times_sha256": "305a024051da6280e6062707eee9924eff546207aaa94ab2f2f3227943a56dbb",
+      "image_content_sha256": "bd7da3dded3f1ef722e1b90a9d163dd2adec88e6227475e688ed94daa120b329"
+    },
+    "gmot40__insect-1": {
+      "metadata_sha256": "0f6d92237df2911de21e8a466b83b902ff2dc158620bf9a1a20a9aecbb0292ad",
+      "detections_sha256": "20974964383784b5a7857a6d942aa038fda358d02c0e6f2c92e61a43ed27a24c",
+      "gt_sha256": "7e50ef275c7da456d50fb9ce14f75b86f4dca0f62ad74e58863a4770bf09cd22",
+      "frame_times_sha256": "1a1dc1876cf316f6f5fdbdad92e8e37a145e580f00cf1f2b5f5fd9f8c4a8049f",
+      "image_content_sha256": "a5fdf1cae832f5b7429b7e521c19ed6f21760e5fe42162e4f6d45f5d07f49e3e"
+    }
+  },
+  "executable_hashes": {
+    "baseline_v2": "0d5881f78a28d83ccb64bdf205b2074dc0d5fcc0e866dfc0c1e18986cc1cb690",
+    "current": "4a23f8c1b1048e9320937bbef9846b8517a057e15d99220a224e97a380083beb"
+  },
+  "experiment_paths": [
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__easy\\recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__crossings\\recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__abrupt_turns\\recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__occlusion\\recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__births\\recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\synthetic__validation__background_motion\\recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\baseline_v2\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\two_stage\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_uncertainty\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_direction\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_full_gate25\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_hybrid_iou\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_hybrid_full\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\motion_hybrid_no_recovery\\every\\active\\experiment.json",
+    "D:\\Kinetic-Tracker-main\\runs\\refinement\\validation\\gmot40__insect-1\\recovery\\every\\active\\experiment.json"
+  ]
+}

@@ -1,0 +1,521 @@
+{
+  "schema_version": 1,
+  "selected_profile": "two_stage",
+  "selected_association": "two_stage",
+  "budget_profile": "motion_hybrid_full",
+  "budget_association": "motion",
+  "selected_schedule": "every",
+  "budget_schedule": "adaptive50_legacy_all",
+  "selection_basis": "Validation only. Quality and budget association selected separately under every/fixed2 using identical source-balanced HOTA and raw-insect non-regression guard. Budget schedule: maximize same balanced HOTA among declared <=51% realized-call options, raw HOTA within0.5points of fixed2; tie IDF1 then fewer calls. No confirmation results used.",
+  "args": {
+    "min_hits": 1,
+    "iou": 0.1,
+    "prediction_age": 0.24,
+    "max_age": 0.75,
+    "high": 0.35,
+    "low": 0.08,
+    "association": "two_stage",
+    "output_policy": "active",
+    "schedule": "every"
+  },
+  "budget_args": {
+    "min_hits": 1,
+    "iou": 0.1,
+    "prediction_age": 0.24,
+    "max_age": 0.75,
+    "high": 0.35,
+    "low": 0.08,
+    "association": "motion",
+    "motion_gate": 13.2767,
+    "motion_mahalanobis_weight": 0.25,
+    "motion_direction_weight": 0.1,
+    "motion_recovery": 1,
+    "motion_max_center_distance": 3,
+    "motion_cost_limit": 1,
+    "motion_ambiguity_margin": 0.03,
+    "motion_overlap_fallback": 1,
+    "output_policy": "active",
+    "schedule": "adaptive",
+    "target_rate": 0.5,
+    "risk_threshold": 0.28,
+    "novelty_threshold": 8e-05,
+    "max_gap": 8,
+    "scene_method": "legacy",
+    "risk_scope": "all"
+  },
+  "budget_association_validation": {
+    "selected_profile": "motion_hybrid_full",
+    "selection": {
+      "metric": "source-balanced HOTA: .5*mean(synthetic6)+.5*raw insect-1",
+      "tie_break": "source-balanced IDF1, then prefer unchanged two_stage on an exact tie",
+      "reference_profile": "two_stage",
+      "raw_guard_group": "raw_insect",
+      "max_raw_hota_drop": 0.005,
+      "schedule": "fixed2",
+      "output_policy": "active",
+      "test_tuning": false
+    },
+    "outcomes": {
+      "two_stage": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7435642744251926,
+            "IDF1": 0.8122313178186823,
+            "AssA": 0.7099353396681404,
+            "DetA": 0.8130050156631512,
+            "MOTA": 0.8986702868281816
+          },
+          "raw_insect": {
+            "HOTA": 0.20498599835434228,
+            "IDF1": 0.23561430793157076,
+            "AssA": 0.15703094312511473,
+            "DetA": 0.2718332604862129,
+            "MOTA": -0.07717510010921005
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.4742751363897674,
+          "IDF1": 0.5239228128751265,
+          "AssA": 0.4334831413966276,
+          "DetA": 0.5424191380746821,
+          "MOTA": 0.4107475933594858
+        }
+      },
+      "motion_uncertainty": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7458491058379035,
+            "IDF1": 0.8119402044814104,
+            "AssA": 0.7103842553843988,
+            "DetA": 0.8212456089168455,
+            "MOTA": 0.9141795460874408
+          },
+          "raw_insect": {
+            "HOTA": 0.11641074674229042,
+            "IDF1": 0.09450069485805043,
+            "AssA": 0.052223271317189866,
+            "DetA": 0.2777153052696015,
+            "MOTA": -0.11103021477975973
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.431129926290097,
+          "IDF1": 0.4532204496697304,
+          "AssA": 0.3813037633507943,
+          "DetA": 0.5494804570932235,
+          "MOTA": 0.40157466565384053
+        }
+      },
+      "motion_direction": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7458117169920325,
+            "IDF1": 0.8119872963447926,
+            "AssA": 0.7103422559448741,
+            "DetA": 0.821352454071803,
+            "MOTA": 0.9141795460874408
+          },
+          "raw_insect": {
+            "HOTA": 0.11742852287880456,
+            "IDF1": 0.09672943508424182,
+            "AssA": 0.05235026353371273,
+            "DetA": 0.27986522994110424,
+            "MOTA": -0.10374954495813615
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.43162011993541854,
+          "IDF1": 0.4543583657145172,
+          "AssA": 0.3813462597392934,
+          "DetA": 0.5506088420064537,
+          "MOTA": 0.4052150005646523
+        }
+      },
+      "motion_full": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7275796883992268,
+            "IDF1": 0.8406926411285839,
+            "AssA": 0.6909091632322127,
+            "DetA": 0.7904119559575878,
+            "MOTA": 0.9153369534948482
+          },
+          "raw_insect": {
+            "HOTA": 0.12168429823177437,
+            "IDF1": 0.10553359683794467,
+            "AssA": 0.05568169295526396,
+            "DetA": 0.2791372525044699,
+            "MOTA": -0.10520567892246087
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.4246319933155006,
+          "IDF1": 0.47311311898326425,
+          "AssA": 0.37329542809373834,
+          "DetA": 0.5347746042310288,
+          "MOTA": 0.40506563728619366
+        }
+      },
+      "motion_full_gate25": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7526259375611829,
+            "IDF1": 0.8792898437864857,
+            "AssA": 0.7232799367603352,
+            "DetA": 0.7902685362440245,
+            "MOTA": 0.9169573238652187
+          },
+          "raw_insect": {
+            "HOTA": 0.14846131671488125,
+            "IDF1": 0.1488425483068682,
+            "AssA": 0.08524646075727052,
+            "DetA": 0.27204186394549457,
+            "MOTA": -0.10374954495813615
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.4505436271380321,
+          "IDF1": 0.5140661960466769,
+          "AssA": 0.40426319875880284,
+          "DetA": 0.5311552000947595,
+          "MOTA": 0.40660388945354126
+        }
+      },
+      "motion_hybrid_iou": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7439004376322682,
+            "IDF1": 0.8121365591149529,
+            "AssA": 0.7101722223724782,
+            "DetA": 0.813290293145858,
+            "MOTA": 0.8989017683096631
+          },
+          "raw_insect": {
+            "HOTA": 0.20824887303169243,
+            "IDF1": 0.23849693251533743,
+            "AssA": 0.15864268597565867,
+            "DetA": 0.27822423572140775,
+            "MOTA": -0.0549690571532581
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.47607465533198035,
+          "IDF1": 0.5253167458151451,
+          "AssA": 0.43440745417406845,
+          "DetA": 0.5457572644336328,
+          "MOTA": 0.4219663555782025
+        }
+      },
+      "motion_hybrid_full": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7542301813830972,
+            "IDF1": 0.8758835177524223,
+            "AssA": 0.7257257174159307,
+            "DetA": 0.7902533248091353,
+            "MOTA": 0.9174202868281816
+          },
+          "raw_insect": {
+            "HOTA": 0.2413344165343241,
+            "IDF1": 0.32836406433895643,
+            "AssA": 0.19735148041035125,
+            "DetA": 0.29885172397950494,
+            "MOTA": 0.08773207135056425
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.4977822989587106,
+          "IDF1": 0.6021237910456894,
+          "AssA": 0.461538598913141,
+          "DetA": 0.5445525243943201,
+          "MOTA": 0.5025761790893729
+        }
+      },
+      "motion_hybrid_no_recovery": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7437020995274738,
+            "IDF1": 0.8121365591149529,
+            "AssA": 0.7097867454952737,
+            "DetA": 0.814423821597151,
+            "MOTA": 0.9000591757170704
+          },
+          "raw_insect": {
+            "HOTA": 0.2109438212539828,
+            "IDF1": 0.24546142208774585,
+            "AssA": 0.1658635014904089,
+            "DetA": 0.27267291266659777,
+            "MOTA": -0.08336366945759009
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.4773229603907283,
+          "IDF1": 0.5287989906013494,
+          "AssA": 0.4378251234928413,
+          "DetA": 0.5435483671318744,
+          "MOTA": 0.40834775312974014
+        }
+      },
+      "recovery": {
+        "groups": {
+          "synthetic": {
+            "HOTA": 0.7435642744251926,
+            "IDF1": 0.8122313178186823,
+            "AssA": 0.7099353396681404,
+            "DetA": 0.8130050156631512,
+            "MOTA": 0.8986702868281816
+          },
+          "raw_insect": {
+            "HOTA": 0.20528141452009527,
+            "IDF1": 0.23561430793157076,
+            "AssA": 0.1574416862243047,
+            "DetA": 0.27186488803253345,
+            "MOTA": -0.07608299963596651
+          }
+        },
+        "source_balanced": {
+          "HOTA": 0.47442284447264393,
+          "IDF1": 0.5239228128751265,
+          "AssA": 0.43368851294622257,
+          "DetA": 0.5424349518478423,
+          "MOTA": 0.41129364359610754
+        }
+      }
+    },
+    "raw_hota_minimum": 0.19998599835434228,
+    "raw_guard_accepted_profiles": [
+      "two_stage",
+      "motion_hybrid_iou",
+      "motion_hybrid_full",
+      "motion_hybrid_no_recovery",
+      "recovery"
+    ],
+    "baseline_v2_regression_checks": [
+      {
+        "case": "gmot40__insect-1",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      },
+      {
+        "case": "synthetic__validation__abrupt_turns",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      },
+      {
+        "case": "synthetic__validation__background_motion",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      },
+      {
+        "case": "synthetic__validation__births",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      },
+      {
+        "case": "synthetic__validation__crossings",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      },
+      {
+        "case": "synthetic__validation__easy",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      },
+      {
+        "case": "synthetic__validation__occlusion",
+        "mot_bytes_identical": true,
+        "deltas_new_minus_baseline": {
+          "HOTA": 0.0,
+          "IDF1": 0.0,
+          "AssA": 0.0,
+          "DetA": 0.0,
+          "MOTA": 0.0,
+          "IDSW": 0,
+          "FP": 0,
+          "FN": 0,
+          "TP": 0,
+          "Frag": 0
+        }
+      }
+    ],
+    "frozen": false
+  },
+  "schedule_validation": {
+    "every": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7899431887669358,
+          "IDF1": 0.8552398697637255
+        },
+        "raw_insect": {
+          "HOTA": 0.2439357202363827,
+          "IDF1": 0.31149382253837515
+        }
+      },
+      "balanced_HOTA": 0.5169394545016592,
+      "balanced_IDF1": 0.5833668461510503,
+      "detector_rate": 1.0
+    },
+    "fixed2": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7542301813830972,
+          "IDF1": 0.8758835177524223
+        },
+        "raw_insect": {
+          "HOTA": 0.2413344165343241,
+          "IDF1": 0.32836406433895643
+        }
+      },
+      "balanced_HOTA": 0.4977822989587106,
+      "balanced_IDF1": 0.6021237910456894,
+      "detector_rate": 0.5003903200624512
+    },
+    "fixed4": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.6579813831961179,
+          "IDF1": 0.7581694879089257
+        },
+        "raw_insect": {
+          "HOTA": 0.12086359047239523,
+          "IDF1": 0.11299000768639508
+        }
+      },
+      "balanced_HOTA": 0.38942248683425656,
+      "balanced_IDF1": 0.4355797477976604,
+      "detector_rate": 0.2505854800936768
+    },
+    "adaptive50_legacy_all": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7600692557318068,
+          "IDF1": 0.9011292329834558
+        },
+        "raw_insect": {
+          "HOTA": 0.2413344165343241,
+          "IDF1": 0.32836406433895643
+        }
+      },
+      "balanced_HOTA": 0.5007018361330655,
+      "balanced_IDF1": 0.6147466486612061,
+      "detector_rate": 0.36377829820452773
+    },
+    "adaptive50_legacy_active": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7337198943562143,
+          "IDF1": 0.8598070151202917
+        },
+        "raw_insect": {
+          "HOTA": 0.23939993821839137,
+          "IDF1": 0.31839622641509435
+        }
+      },
+      "balanced_HOTA": 0.48655991628730283,
+      "balanced_IDF1": 0.589101620767693,
+      "detector_rate": 0.33411397345823574
+    },
+    "adaptive50_robust_all": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7545399461360266,
+          "IDF1": 0.8748123581685276
+        },
+        "raw_insect": {
+          "HOTA": 0.2413344165343241,
+          "IDF1": 0.32836406433895643
+        }
+      },
+      "balanced_HOTA": 0.49793718133517534,
+      "balanced_IDF1": 0.6015882112537421,
+      "detector_rate": 0.5003903200624512
+    },
+    "adaptive50_robust_active": {
+      "groups": {
+        "synthetic": {
+          "HOTA": 0.7555901915192674,
+          "IDF1": 0.876142932920219
+        },
+        "raw_insect": {
+          "HOTA": 0.23939993821839137,
+          "IDF1": 0.31839622641509435
+        }
+      },
+      "balanced_HOTA": 0.4974950648688294,
+      "balanced_IDF1": 0.5972695796676567,
+      "detector_rate": 0.49804839968774395
+    }
+  },
+  "budget_raw_hota_minimum": 0.2363344165343241,
+  "limitations": [
+    "Detector weights are frozen. Cached detection quality is distinct from real inference throughput.",
+    "Original test clips were already inspected; additional confirmation is scored only after this recommendation is frozen."
+  ]
+}
